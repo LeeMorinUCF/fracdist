@@ -1,6 +1,6 @@
 ################################################################################
 # 
-# Creating the FCVAR Package
+# Creating the fracdist Package
 # 
 # 
 # Lee Morin, Ph.D.
@@ -9,7 +9,7 @@
 # College of Business Administration
 # University of Central Florida
 # 
-# January 29, 2020
+# May 19, 2020
 # 
 ################################################################################
 # 
