@@ -24,6 +24,18 @@
 #
 ##################################################
 
+#' A package for calculating numerical distribution
+#' functions of fractional unit root and cointegration
+#' tests.
+#' It calculates critial values and p-values for unit
+#' root and cointegration tests and for rank tests in
+#' the Fractionally Cointegrated Vector Autoregression
+#' (FCVAR) model.
+#'
+#' @docType package
+#' @name FCVAR
+NULL
+
 
 # Create a function to assemble a table of probabilities
 # and quantiles for all values of the fractional
