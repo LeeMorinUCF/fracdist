@@ -143,7 +143,7 @@ usethis::use_build_ignore(c("dev"))
 
 
 
-# Generate a pdf manual once the documentatino is complete.
+# Generate a pdf manual once the documentation is complete.
 devtools::build_manual()
 # Hmm ... looks like a package
 # Creating pdf output from LaTeX ...
