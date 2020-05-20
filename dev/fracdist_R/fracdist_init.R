@@ -193,23 +193,18 @@ load_all()
 # Examples
 
 # Data for examples.
-votingJNP2014 <- read.csv('data_JNP2014.csv')
-colnames(votingJNP2014)
-# [1] "lib"    "pc"     "ir_can" "ir_us"  "un_can" "un_us"
-# x1 is the only one used.
-colnames(votingJNP2014)[c(1, 3, 5)]
-x1 <- votingJNP2014[, c("lib", "ir_can", "un_can")]
+# my_dataset <- read...()
 
 # Then run
 # usethis::use_data()
-usethis::use_data(votingJNP2014, votingJNP2014)
+usethis::use_data(my_dataset, my_dataset)
 # Warning: Saving duplicates only once: 'votingJNP2014'
 # check Creating 'data/'
 # check Saving 'votingJNP2014' to 'data/votingJNP2014.rda'
 
 # You should also make sure that the data has been optimally compressed:
 # Run
-tools::checkRdaFiles('data/votingJNP2014.rda')
+tools::checkRdaFiles('data/my_dataset.rda')
 # size ASCII compress version
 # data/votingJNP2014.rda 9233 FALSE    bzip2       2
 # to determine the best compression for each file.
