@@ -11,5 +11,10 @@ James G. MacKinnon and Morten Ørregaard Nielsen,
 and Cointegration Tests," *Journal of Applied Econometrics*, Vol. 29, No. 1,
 2014, pp.161-171.  
 
-The program and data associated with the paper are available here: 
+The folder ```R_test_cases``` contains a program and files to, well, test the
+R code used in the R package ```fracdist```.
+
+
+For those of you interested in running the software in Fortran,
+the program and data associated with the paper are available here:
 http://qed.econ.queensu.ca/jae/datasets/mackinnon004/.
