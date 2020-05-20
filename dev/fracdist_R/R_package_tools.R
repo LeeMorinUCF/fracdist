@@ -14,7 +14,7 @@
 ################################################################################
 # 
 # This program collects the tools needed to construct
-#   an R package for the FCVAR model.
+#   an R package for the rank tests used in the FCVAR model.
 #   It uses the packages in Hadley Wickham's book "R Packages"
 # 
 ################################################################################
@@ -28,7 +28,7 @@
 rm(list = ls(all = TRUE))
 
 # Set working directory.
-wd_path <- '~/Research/FCVAR/GitRepo/FCVAR/R'
+wd_path <- '~/Research/FCVAR/GitRepo/fracdist/R'
 setwd(wd_path)
 
 # Load package for development tools.
@@ -59,33 +59,16 @@ rstudioapi::isAvailable("0.99.149")
 # Check that everything is installed:
 has_devel()
 # Need grown-up permission to install. 
+
+# In case it didn't work:
 # Diagnosing the problem.
-pkgbuild::check_build_tools(debug = TRUE)
+# pkgbuild::check_build_tools(debug = TRUE)
 # Have you ever seen the movie 'Inception'?
 
 
 
 devtools::session_info()
 
-
-# Also test Rcpp is installed correctly. 
-library(Rcpp)
-
-# Rcpp example.
-sourceCpp('Rcpp_tests/cumsum1_test.cpp')
-
-print('Testing with c(1, 2, 3, 4, 5):')
-# Rccp version:
-cumsum1(c(1.0, 2.0, 3.0, 4.0, 5.0))
-# Baes R function:
-cumsum(c(1.0, 2.0, 3.0, 4.0, 5.0))
-
-
-# Simpler example:
-sourceCpp('Rcpp_tests/timesTwo.cpp')
-
-# Test
-timesTwo(21)
 
 
 
