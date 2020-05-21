@@ -348,6 +348,10 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
   pval <- pchisq(crfit, df = ndf)
   pval <- 1.0 - pval
 
+
+  # Accuracy only claimed up to the fourth-fifth decimal place.
+  pval <- round(pval, 4)
+
   return(pval)
 }
 
@@ -526,6 +530,9 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 
   ccrit <- sum(lm_olsqc$coefficients*gcq^seq(0,2))
 
+  # Accuracy only claimed up to the fourth-fifth decimal place.
+  ccrit <- round(ccrit, 4)
+
   return(ccrit)
 }
 
@@ -551,7 +558,7 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 #' calculate critical values for the conventional levels of significance:
 #' \code{clevel = c(0.01, 0.05, 0.10)}.
 #' @examples
-#' # Calculate a P-values:
+#' # Calculate P-values:
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.43, stat = 3.84)
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
 #' # Calculate critical values:

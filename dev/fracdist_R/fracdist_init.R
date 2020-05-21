@@ -301,12 +301,17 @@ tools::checkRdaFiles('data/frmapp01.rda')
 
 
 # Test datasets.
-test_data1 <- get(load(file = 'data/frmapp08.RData'))
+test_data1 <- get_fracdist_tab(iq = 1, iscon = 0)
 summary(test_data1)
-summary(frtab)
-test_data2 <- get(load(file = 'data/frcapp01.RData'))
-summary(test_data2)
+summary(frmapp01)
+summary(test_data1 - frmapp01)
 
+test_data2 <- get_fracdist_tab(iq = 12, iscon = 1)
+summary(test_data2)
+summary(frcapp12)
+summary(test_data2 - frcapp12)
+
+# Move on to... actual unit testing.
 
 
 # Testing

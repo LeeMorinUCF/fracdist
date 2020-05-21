@@ -47,7 +47,7 @@ For fractional integration orders between 0 and 0.5, the chi-square
 distribution is used. See Johansen and Nielsen 2012 for details.
 }
 \examples{
-# Calculate a P-values:
+# Calculate P-values:
 fracdist_values(iq = 1, iscon = 0, bb = 0.43, stat = 3.84)
 fracdist_values(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
 # Calculate critical values:
