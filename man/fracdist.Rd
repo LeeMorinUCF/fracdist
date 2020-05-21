@@ -6,16 +6,17 @@
 \title{Numerical Distribution Functions of
 Fractional Unit Root and Cointegration Tests}
 \description{
-A package for calculating numerical distribution
-functions of fractional unit root and cointegration
-tests.
-It calculates critial values and p-values for unit
-root and cointegration tests and for rank tests in
-the Fractionally Cointegrated Vector Autoregression
-(FCVAR) model.
+A package for calculating numerical distribution functions of fractional
+unit root and cointegration tests. It calculates critial values and p-values
+for unit root and cointegration tests and for rank tests in the Fractionally
+Cointegrated Vector Autoregression (FCVAR) model.
 }
 \references{
 James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
 "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+
+Johansen, S. and M. \enc{O}{O}. Nielsen (2012).
+"Likelihood inference for a fractionally cointegrated vector autore-gressive model,"
+Econometrica 80, pp.2667-2732.
 }

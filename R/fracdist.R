@@ -29,17 +29,17 @@
 #' Numerical Distribution Functions of
 #' Fractional Unit Root and Cointegration Tests
 #'
-#' A package for calculating numerical distribution
-#' functions of fractional unit root and cointegration
-#' tests.
-#' It calculates critial values and p-values for unit
-#' root and cointegration tests and for rank tests in
-#' the Fractionally Cointegrated Vector Autoregression
-#' (FCVAR) model.
+#' A package for calculating numerical distribution functions of fractional
+#' unit root and cointegration tests. It calculates critial values and p-values
+#' for unit root and cointegration tests and for rank tests in the Fractionally
+#' Cointegrated Vector Autoregression (FCVAR) model.
 #'
 #' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+#' @references Johansen, S. and M. \enc{O}{O}. Nielsen (2012).
+#' "Likelihood inference for a fractionally cointegrated vector autore-gressive model,"
+#' Econometrica 80, pp.2667-2732.
 #'
 #' @docType package
 #' @name fracdist
@@ -67,6 +67,9 @@ NULL
 #' can be obtained in \code{'txt'} format. See the reference for details.
 #' @examples
 #' frtab <- get_fracdist_tab(iq = 1, iscon = 0)
+#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
+#' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 #' @export
 #'
 get_fracdist_tab <- function(iq, iscon, dir_name = NULL,
@@ -155,17 +158,42 @@ get_fracdist_tab <- function(iq, iscon, dir_name = NULL,
 }
 
 
-
-##################################################
-# Interpolate critical values local to chosen b.
-##################################################
-
-# blocal <- function(nb, bb, estcrit, bval)
-
-blocal <- function(nb, bb, estcrit, bval) {
+#' Interpolate Critical Values Local to Fractional Integration Parameter
+#'
+#' \code{blocal} calculates an approximation to the CDF for a particular
+#' value of the fractional integration parameter b.
+#' @param nb The integer number of values of the fractional integration
+#' parameter \eqn{b}. The default is 31, which is the number of gridpoints
+#' between 0.5 and 2.0 in the lookup tables.
+#' @param bb The fractional integration parameter, which can take on values
+#' between 0.5 and 2.0.
+#' @param estcrit A numeric scalar that is an estimate of the critical value,
+#' a quantile, corresponding to a particular probability.
+#' @param bval A numeric vector of the fractional integration parameter \eqn{b}
+#' ranging between 0.5 and 2.0 to match those in the lookup tables.
+#' @examples
+#' frtab <- get_fracdist_tab(iq = 3, iscon = 0)
+#' bval <- unique(frtab[, 'bbb'])
+#' probs <- unique(frtab[, 'probs'])
+#' estcrit <- frtab[frtab[, 'probs'] == probs[201], 'xndf']
+#' bedf_i <- blocal(nb = 31, bb = 0.75, estcrit, bval)
+#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
+#' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+#' @note The fractional integration parameter \code{b} must lie within
+#' the interval \eqn{[0.50, 2]}. If \code{b} is less than 0.5,
+#' the relevant distribution is chi-squared. A value above 2 is less common
+#' but might be avoided by differencing the data before estimating the model
+#' under consideration.
+#' @export
+#'
+blocal <- function(nb = 31, bb, estcrit, bval) {
 
   if (bb < 0.51 | bb > 2.0) {
-    stop(sprintf('Specified value of b = %f is out of range 0.51 to 2.0.', bb))
+    stop(sprintf('Specified value of b = %3.2f is out of range 0.51 to 2.0.\n', bb),
+         'If b < 0.50, the chi-squared distribution might be appropriate.\n',
+         'If b > 2.0, you might consider differencing your series before\n',
+         'estimating the model under consideration.')
   }
 
   # Weights on neighboring quantiles are based on trapezoidal kernel.
@@ -199,21 +227,39 @@ blocal <- function(nb, bb, estcrit, bval) {
 
 
 
-##################################################
-# Calculate p-values
-##################################################
-
-# c This routine calculates P values.
-# c
-# c stat is test statistic.
-# c npts is number of points for local approximation (probably 9).
-# c bedf contains quantiles of numerical distribution for specified.
-# c value of b or values of b and d.
-# c ginv contains quantiles of approximating chi-squared distribution.
-# c
-
-# pval <- fpval(npts = 9, iq, stat, probs, bedf, ginv)
-
+#' Calculate P-values for Fractional Unit Root and Cointegration Tests
+#'
+#' \code{fpval} calculates P-values for a particular value of the observed
+#' statistic and a set of intermediate calculations.
+#' @param npts An integer number of points for local approximation
+#' of the EDF near the observed value of \code{stat}.
+#' It is usually 9, unless near a boundary.
+#' @param iq An integer scalar rank parameter for the test.
+#' This is often the difference in cointegration rank.
+#' @param stat A numeric scalar value of the test statistic.
+#' @param probs A numeric vector of probabilities over which an approximating
+#' empiricial distribution function is obtained, taken from precalculated tables.
+#' @param bedf A numeric vector of quantiles of numerical distribution for specified
+#' value of fractional integration order \eqn{b} or values of \eqn{b} and \eqn{d},
+#' depending on the particular model. Each element is the output of the function \code{blocal}.
+#' @param ginv A numeric vector of quantiles of the approximating chi-squared distribution.
+#' @examples
+#' frtab <- get_fracdist_tab(iq = 3, iscon = 0)
+#' bval <- unique(frtab[, 'bbb'])
+#' probs <- unique(frtab[, 'probs'])
+#' bedf <- rep(NA, length(probs))
+#' for (i in 1:length(probs)) {
+#'     estcrit <- frtab[frtab[, 'probs'] == probs[i], 'xndf']
+#'     bedf[i] <- blocal(nb = 31, bb = 0.75, estcrit, bval)
+#' }
+#' fpval(npts = 9, iq = 3, stat = 3.84, probs, bedf, ginv = qchisq(probs, df = 3^2))
+#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
+#' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+#' @seealso \code{fracdist_pvalues} for the calculation of P-values including any
+#' intermediate calculations.
+#' @export
+#'
 fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
 
   # nomax <- 25
@@ -256,23 +302,6 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
 
     # Populate the dataset for interpolation by regression.
     ic <- imin - nph - 1 + seq(1, npts)
-
-
-    # print('imin = ')
-    # print(imin)
-    # print('nph = ')
-    # print(nph)
-    # print('npts = ')
-    # print(npts)
-    #
-    # np1 <- length(ic)
-    #
-    # print('np1 = ')
-    # print(np1)
-    # print('ic = ')
-    # print(ic)
-    # print('ginv[ic] = ')
-    # print(ginv[ic])
 
     yx_mat[, 'y'] <- ginv[ic]
     yx_mat[, 'x1'] <- 1.0
@@ -323,19 +352,30 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
 }
 
 
-
-
-##################################################
-# Main function for calculating p-values
-# Includes preliminary calculations.
-##################################################
-
-# pval <- fracdist_pvalues(iq = 1, iscon = 0, dir_name = data_dir,
-#                          bb = 0.73, stat = 3.84)
-# print(pval)
-
-
-fracdist_pvalues <- function(iq, iscon, dir_name, bb, stat) {
+#' Calculate P-values for Fractional Unit Root and Cointegration Tests
+#'
+#' \code{fracdist_pvalues} calculates P-values for a particular value of the observed
+#' statistic.
+#' @param iq An integer scalar rank parameter for the test.
+#' This is often the difference in cointegration rank.
+#' @param iscon An indicator that there is a constant intercept
+#' term in the model.
+#' @param dir_name A string name of directory in which the approximating tables
+#' are stored. This is not normally used, since suffucient tables are included in the package.
+#' However, a user might want to draw the tables from another location.
+#' @param bb The fractional integration parameter, which can take on values
+#' between 0.5 and 2.0.
+#' @param stat A numeric scalar value of the test statistic.
+#' @examples
+#' fracdist_pvalues(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
+#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
+#' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+#' @seealso Calls \code{fpval} for the calculation of P-values after
+#' performing some intermediate calculations.
+#' @export
+#'
+fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
 
   # Obtain relevant table of statistics.
   frtab <- get_fracdist_tab(iq, iscon, dir_name)
@@ -368,33 +408,39 @@ fracdist_pvalues <- function(iq, iscon, dir_name, bb, stat) {
 }
 
 
-
-
-##################################################
-# Might as well finish the job
-# Critical Values, in case someone needs them
-##################################################
-
-# c This routine calculates critical values.
-# c
-# c clevel is level for test.
-# c npts is number of points for local approximation (probably 9).
-# c bedf contains quantiles of numerical distribution for specified
-# c value of b or values of b and d.
-# c ginv contains quantiles of approximating chi-squared distribution.
-# c
-
-# ccrit <- fpcrit(npts = 9, iq, clevel = 0.05, probs, bedf, ginv)
-# print(ccrit)
-
-
-# for (clevel_i in c(0.01, 0.05, 0.10)) {
-#   ccrit <- fpcrit(npts = 9, iq, clevel = clevel_i, probs, bedf, ginv)
-#   print(ccrit)
-#
-# }
-
-
+#' Calculate Critical Values for Fractional Unit Root and Cointegration Tests
+#'
+#' \code{fcrit} calculates critical values for a particular level of significance
+#' and a set of intermediate calculations.
+#' @param npts An integer number of points for local approximation
+#' of the EDF near the level of significance \code{clevel}.
+#' It is usually 9, unless near a boundary.
+#' @param iq An integer scalar rank parameter for the test.
+#' This is often the difference in cointegration rank.
+#' @param clevel The numeric scalar level of significance.
+#' @param probs A numeric vector of probabilities over which an approximating
+#' empiricial distribution function is obtained, taken from precalculated tables.
+#' @param bedf A numeric vector of quantiles of numerical distribution for specified
+#' value of fractional integration order \eqn{b} or values of \eqn{b} and \eqn{d},
+#' depending on the particular model. Each element is the output of the function \code{blocal}.
+#' @param ginv A numeric vector of quantiles of the approximating chi-squared distribution.
+#' @examples
+#' frtab <- get_fracdist_tab(iq = 3, iscon = 0)
+#' bval <- unique(frtab[, 'bbb'])
+#' probs <- unique(frtab[, 'probs'])
+#' bedf <- rep(NA, length(probs))
+#' for (i in 1:length(probs)) {
+#'     estcrit <- frtab[frtab[, 'probs'] == probs[i], 'xndf']
+#'     bedf[i] <- blocal(nb = 31, bb = 0.75, estcrit, bval)
+#' }
+#' fpcrit(npts = 9, iq = 3, clevel = 0.05, probs, bedf, ginv = qchisq(probs, df = 3^2))
+#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
+#' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+#' @seealso fracdist_values for the calculation of critical values and
+#' P-values including any intermediate calculations.
+#' @export
+#'
 fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 
   # nomax <- 25
@@ -484,57 +530,108 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 }
 
 
-
-
-
-##################################################
-# Main function for calculating either critical
-# values or p-values
-# Includes preliminary calculations.
-##################################################
-
-fracdist_values <- function(iq, iscon, dir_name, bb, stat,
+#' Calculate Critical Values or P-values for Fractional Unit Root and Cointegration Tests
+#'
+#' \code{fracdist_values} calculates either critical Values or P-values for
+#' for fractional unit root and cointegration tests
+#' @param iq An integer scalar rank parameter for the test.
+#' This is often the difference in cointegration rank.
+#' @param iscon An indicator that there is a constant intercept
+#' term in the model.
+#' @param dir_name A string name of directory in which the approximating tables
+#' are stored. This is not normally used, since suffucient tables are included in the package.
+#' However, a user might want to draw the tables from another location.
+#' @param bb The fractional integration parameter, which can take on values
+#' between 0.5 and 2.0.
+#' @param stat A numeric scalar value of the test statistic. This is only
+#' used if P-values are required.
+#' @param ipc A logical indicator to calculate a P-value.
+#' If \code{ipc == FALSE} critical values are calculated instead.
+#' @param clevel The numeric scalar level of significance. The default is to
+#' calculate critical values for the conventional levels of significance:
+#' \code{clevel = c(0.01, 0.05, 0.10)}.
+#' @examples
+#' # Calculate a P-values:
+#' fracdist_values(iq = 1, iscon = 0, bb = 0.43, stat = 3.84)
+#' fracdist_values(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
+#' # Calculate critical values:
+#' fracdist_values(iq = 1, iscon = 0, bb = 0.73, ipc = FALSE, clevel = 0.05)
+#' fracdist_values(iq = 1, iscon = 0, bb = 0.43, ipc = FALSE, clevel = 0.05)
+#' fracdist_values(iq = 1, iscon = 0, bb = 0.73, ipc = FALSE)
+#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
+#' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+#' @references Johansen, S. and M. \enc{O}{O}. Nielsen (2012).
+#' "Likelihood inference for a fractionally cointegrated vector autoregressive model,"
+#' Econometrica 80, pp.2667-2732.
+#' @seealso Calls \code{fpval} to calculate P-values
+#' or \code{fpcrit} to calculate critical values,
+#' after performing some intermediate calculations.
+#' @note For fractional integration orders between 0 and 0.5, the chi-square
+#' distribution is used. See Johansen and Nielsen 2012 for details.
+#' @export
+#'
+fracdist_values <- function(iq, iscon, dir_name = NULL, bb, stat,
                             ipc = TRUE, clevel = c(0.01, 0.05, 0.10)) {
 
-  # Obtain relevant table of statistics.
-  frtab <- get_fracdist_tab(iq, iscon, dir_name)
-  bval <- unique(frtab[, 'bbb'])
-  bval <- bval[order(bval)]
-  probs <- unique(frtab[, 'probs'])
-  probs <- probs[order(probs)]
+  # Use chi-square distribution for fractional integration orders between 0 and 0.5.
+  if (bb > 0 & bb < 0.5) {
 
-  # Calculate the approximate CDF for this particular value of b.
-  nb <- 31
-  np <- 221
-  bedf <- rep(NA, np)
-  for (i in 1:np) {
+    if (ipc == TRUE) {
 
-    prob_i <- probs[i]
-    estcrit <- frtab[frtab[, 'probs'] == prob_i, 'xndf']
+      # Calculate p-values.
+      outval <- 1 - pchisq(q = stat, df = iq^2)
 
-    bedf[i] <- blocal(nb, bb, estcrit, bval)
+    } else {
 
-  }
+      # Calculate critical values.
+      outval <- qchisq(p = 1 - clevel, df = iq^2)
 
-  # Obtain inverse CDF of the Chi-squared distribution.
-  ginv <- qchisq(probs, df = iq^2)
-  # This is the dependent variable in the interpolation regressions.
-
-  # Perform required calculation.
-  if (ipc == TRUE) {
-
-    # Calculate p-values.
-    outval <- fpval(npts = 9, iq, stat, probs, bedf, ginv)
+    }
 
   } else {
 
-    # Calculate critical values.
+    # Obtain relevant table of statistics.
+    frtab <- get_fracdist_tab(iq, iscon, dir_name)
+    bval <- unique(frtab[, 'bbb'])
+    bval <- bval[order(bval)]
+    probs <- unique(frtab[, 'probs'])
+    probs <- probs[order(probs)]
 
-    # Might specify a list of critical values.
-    outval <- rep(NA, length(clevel))
-    for (i in 1:length(clevel)) {
-      clevel_i <- clevel[i]
-      outval[i] <- fpcrit(npts = 9, iq, clevel = clevel_i, probs, bedf, ginv)
+    # Calculate the approximate CDF for this particular value of b.
+    nb <- 31
+    np <- 221
+    bedf <- rep(NA, np)
+    for (i in 1:np) {
+
+      prob_i <- probs[i]
+      estcrit <- frtab[frtab[, 'probs'] == prob_i, 'xndf']
+
+      bedf[i] <- blocal(nb, bb, estcrit, bval)
+
+    }
+
+    # Obtain inverse CDF of the Chi-squared distribution.
+    ginv <- qchisq(probs, df = iq^2)
+    # This is the dependent variable in the interpolation regressions.
+
+    # Perform required calculation.
+    if (ipc == TRUE) {
+
+      # Calculate p-values.
+      outval <- fpval(npts = 9, iq, stat, probs, bedf, ginv)
+
+    } else {
+
+      # Calculate critical values.
+
+      # Might specify a list of critical values.
+      outval <- rep(NA, length(clevel))
+      for (i in 1:length(clevel)) {
+        clevel_i <- clevel[i]
+        outval[i] <- fpcrit(npts = 9, iq, clevel = clevel_i, probs, bedf, ginv)
+
+      }
 
     }
 
