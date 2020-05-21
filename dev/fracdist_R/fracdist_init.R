@@ -190,10 +190,12 @@ load_all()
 # 3. Try out the change by running a small example or some tests.
 
 
-# Examples
 
-# Data for examples.
-# my_dataset <- read...()
+# Data for lookup tables.
+# This sets up the folder and files for supporting the fracdist package.
+data_dir <- '~/Research/FCVAR/fracdist_Fortran/mn-files'
+frcapp01 <- get_fracdist_tab(iq = 1, iscon = 0, dir_name = data_dir)
+
 
 # Then run
 # usethis::use_data()
@@ -218,6 +220,13 @@ usethis::use_data(votingJNP2014, votingJNP2014, compress = 'whatever')
 # If you've lost the code for recreating the files, you can use
 tools::resaveRdaFiles()
 # to re-save in place.
+
+# Test datasets.
+test_data1 <- get(load(file = 'data/frmapp08.RData'))
+summary(test_data1)
+summary(frtab)
+test_data2 <- get(load(file = 'data/frcapp01.RData'))
+summary(test_data2)
 
 
 
