@@ -46,12 +46,12 @@
 NULL
 
 
-#'
+#' Obtain Lookup Tables of Probabilities and Quantiles
 #'
 #' \code{get_fracdist_tab} selects a table of probabilities
-#' and quantiles for all values of the fractional
-#' integration parameter for a particular rank and
-#' specification of constant.
+#' and quantiles for a list of values of the fractional
+#' integration parameter, corresponding to a particular rank
+#' or dimension and the specification of a constant term.
 #' @param iq An integer scalar rank parameter for the test.
 #' This is often the difference in cointegration rank.
 #' @param iscon An indicator that there is a constant intercept
@@ -59,25 +59,18 @@ NULL
 #' @param dir_name A string name of directory in which the tables
 #' are stored. This is not normally used, however, a user might want to
 #' draw the tables from another location.
-#' @param file_ext A string extension indicating the file type of
-#' the tables. The default is \code{'RData'}, which is the format of
-#' the tables included in the package. The tables accompanying the
+#' @param file_ext A string extension indicating the file format of
+#' the tables. The default is \code{'rda'}, which is the format of
+#' the tables included in the package. The tables may also be stored in
+#' \code{'RData'} format. The tables accompanying the
 #' original Fortran program, on which this package is based,
 #' can be obtained in \code{'txt'} format. See the reference for details.
 #' @examples
 #' frtab <- get_fracdist_tab(iq = 1, iscon = 0)
 #' @export
 #'
-
-# frtab <- get_fracdist_tab(iq = 1, iscon = 0, dir_name = data_dir)
-#
-# summary(frtab)
-# head(frtab)
-# frtab[217:223, ]
-# tail(frtab)
-
 get_fracdist_tab <- function(iq, iscon, dir_name = NULL,
-                             file_ext = 'RData') {
+                             file_ext = 'rda') {
 
   # Determine required file name.
 
@@ -133,21 +126,22 @@ get_fracdist_tab <- function(iq, iscon, dir_name = NULL,
 
   } else if (file_ext == 'RData') {
 
+    # Load compressed files for R.
+    in_file_name <- sprintf('%s/%s%s.RData', dir_name, dfirst, dq)
+    frtab <- get(load(file = in_file_name))
+
+  } else if (file_ext == 'rda') {
+
     if (is.null(dir_name)) {
 
       # Read the table from within the data folder of the R package.
       in_file_name <- sprintf('%s%s', dfirst, dq)
-      # data(get(in_file_name)) # Assigns to frtab.
-      # data(in_file_name) # Assigns to frtab.
-      # data(list = c(in_file_name))
-      # get(in_file_name)
-      # frtab <- get('frtab') # Not necessary, since already assigned.
       frtab <- get(in_file_name) # Not necessary, since already assigned.
 
     } else {
 
       # Load compressed files for R.
-      in_file_name <- sprintf('%s/%s%s.RData', dir_name, dfirst, dq)
+      in_file_name <- sprintf('%s/%s%s.rda', dir_name, dfirst, dq)
       frtab <- get(load(file = in_file_name))
 
     }
