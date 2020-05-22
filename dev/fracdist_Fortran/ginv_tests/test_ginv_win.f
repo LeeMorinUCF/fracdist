@@ -1,7 +1,7 @@
 
       implicit real*8 (a-h,o-z)
       real*8 xndf(221,31), bval(31), probs(221), ginv(221)
-      real*8 ginviq(221,12)
+      real*8 ginviq(221,12), chinv
 c
 c read_test_fracdist.f reads test cases for fracdist.f, which is a
 c program to compute P values or critical values for tests of
@@ -19,9 +19,10 @@ c Read list of probabilities from any one of the tables.
 c
       call readdata(iiq,iscon,probs,bval,xndf)
 c
-c Open file to save results.
+c Open files to save results.
 c
       open (unit=13,file='test_ginv.csv')
+      open (unit=14,file='test_chinv.csv')
 c
 c Loop on rank iq to collect inverse cdf quantiles.
 c
@@ -36,14 +37,17 @@ c       Record this column in the matrix ginviq.
 c
 c Write probability and resulting ginv to output file.
 c
-      write(6,100) 'Printing test cases for all ranks.'
- 100  format(/,A34,/)
+      write(6,100) 'Printing ginv test cases for all ranks.'
+ 100  format(/,A39,/)
       do ip=1,np
         write(13,101,advance='no') probs(ip)
  101    format(f6.4)
         do iq=1,nq
+c         Write output of ginv.
           write(13,102,advance='no') ',', ginviq(ip,iq)
  102      format(A1,1x,f16.12)
+c         Call chisqd and write output.
+          call chisqd(iq*iq,probs(ip),chinv)
         end do
         write(13,103) ' '
  103    format(A1)
@@ -51,6 +55,26 @@ c
 c
       write(6,104) 'See output in file test_ginv.csv'
  104  format(/,A32,/)
+c
+c Call chisqd and write output to next file.
+c
+      write(6,105) 'Printing chisqd test cases for all ranks.'
+ 105  format(/,A41,/)
+      do ip=1,np
+        write(14,106,advance='no') probs(ip)
+ 106    format(f6.4)
+        do iq=1,nq
+c         Call chisqd and write output.
+          call chisqd(iq*iq,probs(ip),chinv)
+          write(14,107,advance='no') ',', chinv
+ 107      format(A1,1x,f16.12)
+        end do
+        write(14,108) ' '
+ 108    format(A1)
+      end do
+c
+      write(6,109) 'See output in file test_chinv.csv'
+ 109  format(/,A33,/)
 c
       stop
       end
