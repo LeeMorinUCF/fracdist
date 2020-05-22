@@ -23,7 +23,6 @@
 #   critial values and p-values.
 #
 # TODO: Revise for csv file format.
-# TODO: Fix bug in 8 vs 9 element output of ginv.
 # TODO: Fine tune the critical values.
 #
 ##################################################
@@ -40,13 +39,13 @@ rm(list=ls(all=TRUE))
 wd_path <- '~/Research/FCVAR'
 
 # Set data directory.
-data_dir <- '~/Research/FCVAR/fracdist/mn-files'
+# data_dir <- '~/Research/FCVAR/fracdist/mn-files'
 
 # Set directory for test cases.
 test_dir <- '~/Research/FCVAR/GitRepo/FCVAR/R_dev/Fortran_tests'
 
 # Set fracdist library directory.
-source_dir <- '~/Research/FCVAR/GitRepo/FCVAR/R_dev/Fortran_tests'
+# source_dir <- '~/Research/FCVAR/GitRepo/FCVAR/R_dev/Fortran_tests'
 
 setwd(wd_path)
 
@@ -57,8 +56,9 @@ setwd(wd_path)
 
 # Load library with functions for calculating
 #   critial values and p-values.
-fracdist_lib_file <- sprintf('%s/fracdist_lib1.R', source_dir)
-source(fracdist_lib_file)
+# Not needed when package is loaded.
+# fracdist_lib_file <- sprintf('%s/fracdist_lib1.R', source_dir)
+# source(fracdist_lib_file)
 
 # Read in files of test cases evaluated in Fortran.
 
@@ -96,13 +96,15 @@ tail(test_fcval)
 
 test_fpval[, 'pval_test'] <- NA
 
-fracdist_out_last <- -7
+# fracdist_out_last <- -7
 # for (row_num in 1:10) {
 # for (row_num in 1:nrow(test_fpval)) {
 # for (row_num in 399:nrow(test_fpval)) {
 # row_num <- 415 # Test case missing.
 # row_num <- 1240 # Test case missing.
-for (row_num in which(is.na(test_fpval[, 'pval_test']))) {
+# for (row_num in which(is.na(test_fpval[, 'pval_test']))) {
+# for (row_num in 1:10) {
+for (row_num in 1:nrow(test_fpval)) {
 
   if(row_num %in% seq(0, nrow(test_fpval), by = 100)) {
     print(sprintf('Performing test case %d of %d.', row_num, nrow(test_fpval)))
@@ -112,7 +114,7 @@ for (row_num in which(is.na(test_fpval[, 'pval_test']))) {
 
     fracdist_out <- fracdist_values(iq = test_fpval[row_num, 'iq'],
                                     iscon = test_fpval[row_num, 'iscon'],
-                                    dir_name = data_dir,
+                                    # dir_name = data_dir,
                                     bb = test_fpval[row_num, 'bb'],
                                     stat = test_fpval[row_num, 'stat'])
 
@@ -174,8 +176,8 @@ test_fcval[, 'cval_test'] <- NA
 
 # for (row_num in 1:10) {
 # row_num <- which(is.na(test_fcval[, 'cval_test']))[1]
-for (row_num in which(is.na(test_fcval[, 'cval_test']))) {
-# for (row_num in 1:nrow(test_fcval)) {
+# for (row_num in which(is.na(test_fcval[, 'cval_test']))) {
+for (row_num in 1:nrow(test_fcval)) {
 
   if(row_num %in% seq(0, nrow(test_fcval), by = 100)) {
     print(sprintf('Performing test case %d of %d.', row_num, nrow(test_fcval)))
@@ -183,7 +185,7 @@ for (row_num in which(is.na(test_fcval[, 'cval_test']))) {
 
   fracdist_out <- fracdist_values(iq = test_fcval[row_num, 'iq'],
                                   iscon = test_fcval[row_num, 'iscon'],
-                                  dir_name = data_dir,
+                                  # dir_name = data_dir,
                                   bb = test_fcval[row_num, 'bb'],
                                   # stat = NA,
                                   ipc = FALSE,
@@ -201,6 +203,18 @@ tail(test_fcval)
 # Test for errors.
 summary(test_fcval[, 'cval'] - test_fcval[, 'cval_test'])
 summary(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 4))
+table(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 4))
+# -0.000100000000031741  -0.00010000000000332 -9.99999999748979e-05
+#                     6                     4                     9
+#                     0   0.00010000000000332
+#                   698                     3
+# I'd call this correct:
+# 698/720 test cases exactly equal.
+# The other 22 test cases off by last digit
+# that is displayed in the Fortran code.
+
+
+# Differences in previous version:
 sum(!(test_fcval[, 'cval'] == round(test_fcval[, 'cval_test'], 4)),
     na.rm = TRUE)
 all(test_fcval[, 'cval'] == round(test_fcval[, 'cval_test'], 4))
