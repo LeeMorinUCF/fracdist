@@ -149,7 +149,7 @@ max(abs(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4)),
 table(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4))
 # -0.000199999999999978  -9.9999999999989e-05                     0
 #                    10                    10                  2380
-
+# Good enough for me.
 
 
 # Differences in previous version:
