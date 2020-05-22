@@ -118,6 +118,12 @@ for (iq in seq(12)) {
 summary(chisqd_test[, chisqd_col])
 summary(chisqd_test[, qchisq_col])
 summary(chisqd_test[, diff_col])
+# Ok, so these are different too.
+# Similar patterns, mostly different numbers here.
+
+# Conclusion: Load exact values from the Fortran code.
+# IOW: If it's good enough for James, it's good enough for me.
+# IOW: If James is wrong (unlikely), then I want to be wrong like James.
 
 
 
