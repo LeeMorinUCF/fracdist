@@ -384,9 +384,10 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
   # Obtain relevant table of statistics.
   frtab <- get_fracdist_tab(iq, iscon, dir_name)
   bval <- unique(frtab[, 'bbb'])
-  bval <- bval[order(bval)]
+  # bval <- bval[order(bval)]
   probs <- unique(frtab[, 'probs'])
-  probs <- probs[order(probs)]
+  # probs <- ginv_tab[, 'probs']
+  # probs <- probs[order(probs)]
 
   # Calculate the approximate CDF for this particular value of b.
   nb <- 31
@@ -402,8 +403,10 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
   }
 
   # Obtain inverse CDF of the Chi-squared distribution.
-  ginv <- qchisq(probs, df = iq^2)
-  # This is the dependent variable in the interpolation regressions.
+  # ginv <- qchisq(probs, df = iq^2)
+  ginv <- ginv_tab[, sprintf('iq_%d', iq)]
+  # In the interpolation regressions, this is the regressand
+  # for fpval and the regressors for fpcrit.
 
   # Calculate p-values.
   pval <- fpval(npts = 9, iq, stat, probs, bedf, ginv)
@@ -601,9 +604,10 @@ fracdist_values <- function(iq, iscon, dir_name = NULL, bb, stat,
     # Obtain relevant table of statistics.
     frtab <- get_fracdist_tab(iq, iscon, dir_name)
     bval <- unique(frtab[, 'bbb'])
-    bval <- bval[order(bval)]
+    # bval <- bval[order(bval)]
     probs <- unique(frtab[, 'probs'])
-    probs <- probs[order(probs)]
+    # probs <- ginv_tab[, 'probs']
+    # probs <- probs[order(probs)]
 
     # Calculate the approximate CDF for this particular value of b.
     nb <- 31
@@ -619,8 +623,10 @@ fracdist_values <- function(iq, iscon, dir_name = NULL, bb, stat,
     }
 
     # Obtain inverse CDF of the Chi-squared distribution.
-    ginv <- qchisq(probs, df = iq^2)
-    # This is the dependent variable in the interpolation regressions.
+    # ginv <- qchisq(probs, df = iq^2)
+    ginv <- ginv_tab[, sprintf('iq_%d', iq)]
+    # In the interpolation regressions, this is the regressand
+    # for fpval and the regressors for fpcrit.
 
     # Perform required calculation.
     if (ipc == TRUE) {

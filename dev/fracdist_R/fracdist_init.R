@@ -311,7 +311,22 @@ summary(test_data2)
 summary(frcapp12)
 summary(test_data2 - frcapp12)
 
-# Move on to... actual unit testing.
+
+# Load table of ginv values from Fortran code.
+data_dir <- '~/Research/FCVAR/GitRepo/fracdist/dev/fracdist_Fortran/ginv_tests'
+in_file_name <- sprintf('%s/test_ginv.csv', data_dir)
+ginv_tab <- read.csv(in_file_name, header = FALSE)
+ginv_col <- sprintf('iq_%d', seq(12))
+colnames(ginv_tab) <- c('probs', ginv_col)
+
+summary(ginv_tab)
+
+# Add to the data folder in the package.
+usethis::use_data(ginv_tab, ginv_tab)
+
+
+
+
 
 
 # Testing
