@@ -46,6 +46,7 @@ setwd(wd_path)
 # Load Data
 ##################################################
 
+# Test cases from ginv
 in_file_name <- 'test_ginv.csv'
 ginv_test <- read.csv(in_file_name, header = FALSE)
 
@@ -54,8 +55,19 @@ gcinv_col <- sprintf('gcinv_%d', seq(12))
 colnames(ginv_test) <- c('probs', gcinv_col)
 
 
+# Test cases from chisqd
+in_file_name <- 'test_chinv.csv'
+chisqd_test <- read.csv(in_file_name, header = FALSE)
+
+
+chisqd_col <- sprintf('chisqd_%d', seq(12))
+
+colnames(chisqd_test) <- c('probs', chisqd_col)
+
+
+
 ##################################################
-# Preliminaries: Inspection
+# Comparison of ginv with qchisq
 ##################################################
 
 # Original test cases from Fortran.
@@ -86,4 +98,29 @@ summary(ginv_test[, diff_col])
 # Ok. Compare to the other function.
 
 
+##################################################
+# Comparison of ginv with qchisq
+##################################################
 
+summary(chisqd_test)
+
+
+# Append values calculated in R.
+for (iq in seq(12)) {
+
+  chisqd_test[, qchisq_col[iq]] <- qchisq(p = prob_list, df = iq^2)
+
+  chisqd_test[, diff_col[iq]] <- chisqd_test[, qchisq_col[iq]] -
+    chisqd_test[, chisqd_col[iq]]
+
+}
+
+summary(chisqd_test[, chisqd_col])
+summary(chisqd_test[, qchisq_col])
+summary(chisqd_test[, diff_col])
+
+
+
+##################################################
+# End
+##################################################
