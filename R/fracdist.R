@@ -326,10 +326,19 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
     } else {
 
       np1 <- 222 - imin + nph
-      np1 <- max(np1, 5)
+      np1 <- min(max(np1, 5), 221)
+
+      print('np1 = ')
+      print(np1)
 
       # Populate the dataset for interpolation by regression.
       ic <- 222 - seq(1, np1)
+
+
+      print('ic = ')
+      print(ic)
+
+
       yx_mat[1:np1, 'y'] <- ginv[ic]
       yx_mat[1:np1, 'x1'] <- 1.0
       yx_mat[1:np1, 'x2'] <- bedf[ic]

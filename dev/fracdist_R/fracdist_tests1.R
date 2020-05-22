@@ -102,8 +102,10 @@ test_fpval[, 'pval_test'] <- NA
 # for (row_num in 399:nrow(test_fpval)) {
 # row_num <- 415 # Test case missing.
 # row_num <- 1240 # Test case missing.
-# for (row_num in which(is.na(test_fpval[, 'pval_test']))) {
+# row_num <- 1001 # Test case missing.
 # for (row_num in 1:10) {
+# for (row_num in 1:nrow(test_fpval)) {
+# for (row_num in which(is.na(test_fpval[, 'pval_test']))) {
 for (row_num in 1:nrow(test_fpval)) {
 
   if(row_num %in% seq(0, nrow(test_fpval), by = 100)) {
@@ -140,6 +142,17 @@ tail(test_fpval)
 # Test for errors.
 summary(test_fpval[, 'pval'] - test_fpval[, 'pval_test'])
 summary(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4))
+max(abs(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4)),
+    na.rm = TRUE)
+# Differences are exactly zero, except for the 20 corner cases
+# and those are only off on the last decimal.
+table(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4))
+# -0.000199999999999978  -9.9999999999989e-05                     0
+#                    10                    10                  2380
+
+
+
+# Differences in previous version:
 sum(!(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4)),
     na.rm = TRUE)
 all(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4))
