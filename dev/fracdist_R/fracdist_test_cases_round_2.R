@@ -1,5 +1,4 @@
 
-
 ##################################################
 #
 # Fractionally Cointegrated VAR Model
@@ -11,30 +10,26 @@
 # College of Business Administration
 # University of Central Florida
 #
-# May 19, 2020
+# May 23, 2020
 #
 ##################################################
 #
-# fracdist_test_cases_round_1.R
+# fracdist_test_cases_round_2.R
 #   generates test cases for critial values and p-values and
 #   compares them against those evaluated in Fortran.
 #
-# In round 1, test cases are generated for all cases
+# In round 2, test cases are also generated for all cases
 #   of rank iq and constant indicator, for randomly
 #   chosen values of b, uniformly between 0.5 and 2.
 #   For p-values, quantiles were selected from the
-#   corresponding chi-squared distribution with d.f. iq^2,
-#   with the quantiles chosen by the inverse chi-squared
-#   CDF of uniform random variables between 0.8 and 1.0.
-#   For critical values, only the conventional levels of
-#   significance were used, 0.10, 0.05 and 0.01.
-#   While these are not good test cases, more relevant cases
-#   are derived from the results of the critical value test
-#   cases.
+#   corresponding critical values in the tests from round 1,
+#   except that they are perturbed by normal random variable.
+#   For critical values, uniformly chosen levels of
+#   significance were used, with level of significance drawn
+#   from the uniform distribution over [0.01 to 0.10].
 #
 # Dependencies:
-#   fracdist_lib.R with functions for calculating
-#   critial values and p-values.
+#   fracdist package.
 #
 # TODO: Revise for csv file format
 #   (Maybe never, after tests pass).
@@ -53,69 +48,98 @@ rm(list=ls(all=TRUE))
 wd_path <- '~/Research/FCVAR'
 
 # Set directory for test cases.
-test_dir <- '~/Research/FCVAR/GitRepo/FCVAR/R_dev/Fortran_tests'
+test_dir <- '~/Research/FCVAR/GitRepo/fracdist/dev/fracdist_Fortran/R_test_cases'
 
 setwd(wd_path)
 
 
 
+
 ##################################################
-# Generate Test Cases
+# Read Test Cases from Round 1
+##################################################
+
+
+# Critical value test cases.
+in_file_name <- 'test_fcval_round_1.out'
+in_file_name <- sprintf('%s/%s', test_dir, in_file_name)
+test_fcval_1 <- read.fwf(in_file_name, widths = c(1, 3, 6, 5, 9), skip = 1)
+colnames(test_fcval_1) <- c('iscon', 'iq', 'bb', 'clevel', 'cval')
+
+
+##################################################
+# Set Parameters
 ##################################################
 
 # Set lists of input variables.
 iscon_list <- c(0, 1)
 iq_list <- seq(12)
-clevel_list <- c(0.10, 0.05, 0.01)
 num_bb <- 10
-num_stat <- 10
-set.seed(42)
-bb_list <- runif(num_bb, min = 0.50, max = 2.0)
-stat_inv_list <- runif(num_stat, min = 0.80, max = 1.0)
+num_stat <- 4
+num_clevel <- 4
+
+num_cases <- num_bb*2*num_clevel*12
 
 
-# Create two tables, one for each function.
-
-
-# Test p-values for a variety of values of the statistic.
-test_fpval <- expand.grid(bb = bb_list,
+# Initialize table of p-values.
+test_fpval <- expand.grid(bb = rep(NA, num_bb),
                           iscon = iscon_list,
                           stat = rep(NA, num_stat),
                           iq = iq_list)
-# Draw test statistic values from the corresponding chi-squared distribution.
-iq_length <- 2*num_bb*num_stat
-for (iq_num in 1:length(iq_list)) {
 
-  iq <- iq_list[iq_num]
-  row_sel <- seq((iq_num - 1)*iq_length + 1, iq_num*iq_length)
-  test_fpval[row_sel, 'stat'] <- qchisq(p = rep(stat_inv_list, 2*num_bb),
-                                        df = iq^2)
-
-}
-# Reorder the columns.
-test_fpval <- test_fpval[, c('iscon', 'iq', 'bb', 'stat')]
-summary(test_fpval)
-head(test_fpval)
-tail(test_fpval)
-
-
-# Test critical values for conventional significance levels.
-test_fcval <- expand.grid(bb = bb_list,
+# Initialize table of critical values.
+test_fcval <- expand.grid(bb = rep(NA, num_bb),
                           iscon = iscon_list,
-                          clevel = clevel_list,
+                          clevel = rep(NA, num_clevel),
                           iq = iq_list)
-test_fcval <- test_fcval[, c('iscon', 'iq', 'bb', 'clevel')]
-# test_fcval <- test_fcval[order(test_fcval$), ]
+
+
+##################################################
+# Generate (Pseudo-)Random Part of Test Cases
+##################################################
+
+set.seed(1234)
+# Draw fractional integration parameters at random.
+test_fpval[, 'bb'] <- runif(num_cases, min = 0.50, max = 2.0)
+test_fcval[, 'bb'] <- runif(num_cases, min = 0.50, max = 2.0)
+
+
+# For the p-value tests, take normal random draws
+# around the 1, 5 (twice), 1nd 10% critical values.
+row_sel <- seq(1, num_cases, by = num_clevel)
+
+test_fpval[row_sel, 'stat'] <-
+  test_fcval_1[test_fcval_1[, 'clevel'] == 0.01, 'cval']
+test_fpval[row_sel + 1, 'stat'] <-
+  test_fcval_1[test_fcval_1[, 'clevel'] == 0.05, 'cval']
+test_fpval[row_sel + 2, 'stat'] <-
+  test_fcval_1[test_fcval_1[, 'clevel'] == 0.05, 'cval']
+test_fpval[row_sel + 3, 'stat'] <-
+  test_fcval_1[test_fcval_1[, 'clevel'] == 0.10, 'cval']
+
+# Add a random draw.
+test_fpval[, 'stat'] <- test_fpval[, 'stat'] + rnorm(num_cases)
+
+
+# For the critical value tests, take uniform draws
+# of the level of significance.
+test_fcval[, 'clevel'] <- runif(num_cases, min = 0.01, max = 0.10)
+
+
+summary(test_fpval)
 summary(test_fcval)
-head(test_fcval)
-tail(test_fcval)
+
+
+##################################################
+# Save table of test cases for p-values
+##################################################
 
 
 # Save the files in fixed-width format.
 # Yes, I know this is slow but I want to control the formatting
 # the way I would read it in Fortran.
 out_file_name <- 'test_fpval.txt'
-out_file_name <- sprintf('%s/%s', out_dir, out_file_name)
+out_file_name <- sprintf('%s/%s', test_dir, out_file_name)
 cat(sprintf('%s\n', paste(colnames(test_fpval), collapse = ' ')),
     file = out_file_name)
 for (line in 1:nrow(test_fpval)) {
@@ -137,10 +161,14 @@ for (line in 1:nrow(test_fpval)) {
 
 }
 
+##################################################
+# Save table of test cases for critical values
+##################################################
+
 
 # Save the files in fixed-width format.
 out_file_name <- 'test_fcval.txt'
-out_file_name <- sprintf('%s/%s', out_dir, out_file_name)
+out_file_name <- sprintf('%s/%s', test_dir, out_file_name)
 cat(sprintf('%s\n', paste(colnames(test_fcval), collapse = ' ')),
     file = out_file_name)
 for (line in 1:nrow(test_fcval)) {

@@ -14,7 +14,8 @@
 #
 ##################################################
 #
-# fracdist_tables.R evaluates test cases from tables
+# fracdist_test_results_round_1.R
+#   evaluates test cases from tables
 #   of fracdist critial values and p-values and
 #   compares them against those evaluated in Fortran.
 #
