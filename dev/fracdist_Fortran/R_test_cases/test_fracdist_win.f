@@ -11,8 +11,8 @@ c.
       character*18 cval_header
 c
 c Set parameters for number of test cases.
-      npval = 2400
-      ncval = 720
+      npval = 960
+      ncval = 960
 c
 c Open file to read test cases for p-values.
 c
