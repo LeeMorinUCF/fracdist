@@ -20,7 +20,7 @@
 #
 # In round 2, test cases are also generated for all cases
 #   of rank iq and constant indicator, for randomly
-#   chosen values of b, uniformly between 0.5 and 2.
+#   chosen values of b, uniformly between 0.510 and 2.000.
 #   For p-values, quantiles were selected from the
 #   corresponding critical values in the tests from round 1,
 #   except that they are perturbed by normal random variable.
@@ -100,8 +100,8 @@ test_fcval <- expand.grid(bb = rep(NA, num_bb),
 
 set.seed(1234)
 # Draw fractional integration parameters at random.
-test_fpval[, 'bb'] <- runif(num_cases, min = 0.50, max = 2.0)
-test_fcval[, 'bb'] <- runif(num_cases, min = 0.50, max = 2.0)
+test_fpval[, 'bb'] <- runif(num_cases, min = 0.510, max = 2.0)
+test_fcval[, 'bb'] <- runif(num_cases, min = 0.510, max = 2.0)
 
 
 # For the p-value tests, take normal random draws
@@ -125,10 +125,19 @@ test_fpval[, 'stat'] <- test_fpval[, 'stat'] + rnorm(num_cases)
 # of the level of significance.
 test_fcval[, 'clevel'] <- runif(num_cases, min = 0.01, max = 0.10)
 
+# Reorder the columns to match format of Fortran input.
+test_fpval <- test_fpval[, c('iscon', 'iq', 'bb', 'stat')]
+test_fcval <- test_fcval[, c('iscon', 'iq', 'bb', 'clevel')]
+
 
 summary(test_fpval)
-summary(test_fcval)
+head(test_fpval)
+tail(test_fpval)
 
+
+summary(test_fcval)
+head(test_fcval)
+tail(test_fcval)
 
 ##################################################
 # Save table of test cases for p-values
@@ -160,6 +169,7 @@ for (line in 1:nrow(test_fpval)) {
       file = out_file_name, append = TRUE)
 
 }
+
 
 ##################################################
 # Save table of test cases for critical values
