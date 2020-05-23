@@ -22,8 +22,8 @@
 #   fracdist_lib.R with functions for calculating
 #   critial values and p-values.
 #
-# TODO: Revise for csv file format.
-# TODO: Fine tune the critical values.
+# TODO: Revise for csv file format
+#   (Maybe never, after tests pass).
 #
 ##################################################
 
@@ -96,6 +96,7 @@ tail(test_fcval)
 
 test_fpval[, 'pval_test'] <- NA
 
+# A good deal of troubleshooting took place with version 1.
 # fracdist_out_last <- -7
 # for (row_num in 1:10) {
 # for (row_num in 1:nrow(test_fpval)) {
@@ -122,11 +123,6 @@ for (row_num in 1:nrow(test_fpval)) {
 
   )
 
-  # if (!(fracdist_out == fracdist_out_last)) {
-  #   test_fpval[row_num, 'pval_test'] <- fracdist_out
-  #   fracdist_out_last <- fracdist_out
-  # }
-
   # Record result, if successful.
   test_fpval[row_num, 'pval_test'] <- fracdist_out
   # Erase result in case next one not successful.
@@ -152,33 +148,33 @@ table(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4))
 # Good enough for me.
 
 
-# Differences in previous version:
-sum(!(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4)),
-    na.rm = TRUE)
-all(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4))
-
-# Which ones are missing?
-which(is.na(test_fpval[, 'pval_test']))
-head(test_fpval[is.na(test_fpval[, 'pval_test']), ], 100)
-tail(test_fpval[is.na(test_fpval[, 'pval_test']), ], 100)
-# They all have p-values near 1.0000.
-
-# Check the errors.
-
-test_fpval[!is.na(test_fpval[, 'pval_test']) &
-  !(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4)), ]
-
-
-
-# All are rounding errors.
-summary(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4))
-summary(floor(test_fpval[, 'pval']*10^3)/10^3 -
-          floor(test_fpval[, 'pval_test']*10^3)/10^3)
-summary(round(test_fpval[, 'pval'], 4) -
-          round(test_fpval[, 'pval_test'], 4))
-summary(round(test_fpval[, 'pval'], 3) -
-          round(test_fpval[, 'pval_test'], 3))
-# There are always some rounding errors.
+# # Differences in previous version:
+# sum(!(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4)),
+#     na.rm = TRUE)
+# all(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4))
+#
+# # Which ones are missing?
+# which(is.na(test_fpval[, 'pval_test']))
+# head(test_fpval[is.na(test_fpval[, 'pval_test']), ], 100)
+# tail(test_fpval[is.na(test_fpval[, 'pval_test']), ], 100)
+# # They all have p-values near 1.0000.
+#
+# # Check the errors.
+#
+# test_fpval[!is.na(test_fpval[, 'pval_test']) &
+#   !(test_fpval[, 'pval'] == round(test_fpval[, 'pval_test'], 4)), ]
+#
+#
+#
+# # All are rounding errors.
+# summary(test_fpval[, 'pval'] - round(test_fpval[, 'pval_test'], 4))
+# summary(floor(test_fpval[, 'pval']*10^3)/10^3 -
+#           floor(test_fpval[, 'pval_test']*10^3)/10^3)
+# summary(round(test_fpval[, 'pval'], 4) -
+#           round(test_fpval[, 'pval_test'], 4))
+# summary(round(test_fpval[, 'pval'], 3) -
+#           round(test_fpval[, 'pval_test'], 3))
+# # There are always some rounding errors.
 
 
 #--------------------------------------------------
@@ -187,6 +183,7 @@ summary(round(test_fpval[, 'pval'], 3) -
 
 test_fcval[, 'cval_test'] <- NA
 
+# There are always some problemmatic cases.
 # for (row_num in 1:10) {
 # row_num <- which(is.na(test_fcval[, 'cval_test']))[1]
 # for (row_num in which(is.na(test_fcval[, 'cval_test']))) {
@@ -227,45 +224,45 @@ table(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 4))
 # that is displayed in the Fortran code.
 
 
-# Differences in previous version:
-sum(!(test_fcval[, 'cval'] == round(test_fcval[, 'cval_test'], 4)),
-    na.rm = TRUE)
-all(test_fcval[, 'cval'] == round(test_fcval[, 'cval_test'], 4))
-
-plot(test_fcval[, 'cval'],
-     test_fcval[, 'cval_test'])
-hist(test_fcval[, 'cval_test'] -
-     test_fcval[, 'cval'], breaks = 50, col = 'red')
-# There are really just a few outliers.
-
-quantile(test_fcval[, 'cval_test'] -
-           test_fcval[, 'cval'],
-         probs = c(seq(0, 0.05, by = 0.01),
-                   seq(0.95, 1, by = 0.01)))
-
-# summary(floor(test_fcval[, 'cval']*10^2)/10^2 -
-#           round(test_fcval[, 'cval_test'], 2))
-# summary(floor(test_fcval[, 'cval']*10)/10 -
-#           floor(test_fcval[, 'cval_test']*10)/10)
-
-
-summary(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 4))
-summary(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 3))
-summary(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 2))
-
-summary(round(test_fcval[, 'cval'], 3) - round(test_fcval[, 'cval_test'], 3))
-summary(round(test_fcval[, 'cval'], 2) - round(test_fcval[, 'cval_test'], 2))
-
-# Need to fine tune the critical values.
-
-# Some didn't evaluate:
-summary(test_fcval[is.na(test_fcval[, 'cval_test']), ])
-head(test_fcval[is.na(test_fcval[, 'cval_test']), ])
-tail(test_fcval[is.na(test_fcval[, 'cval_test']), ])
-# All cvals in the hundreds
-# All ranks 9 or greater.
-
-which(is.na(test_fcval[, 'cval_test']))
+# # Differences in previous version:
+# sum(!(test_fcval[, 'cval'] == round(test_fcval[, 'cval_test'], 4)),
+#     na.rm = TRUE)
+# all(test_fcval[, 'cval'] == round(test_fcval[, 'cval_test'], 4))
+#
+# plot(test_fcval[, 'cval'],
+#      test_fcval[, 'cval_test'])
+# hist(test_fcval[, 'cval_test'] -
+#      test_fcval[, 'cval'], breaks = 50, col = 'red')
+# # There are really just a few outliers.
+#
+# quantile(test_fcval[, 'cval_test'] -
+#            test_fcval[, 'cval'],
+#          probs = c(seq(0, 0.05, by = 0.01),
+#                    seq(0.95, 1, by = 0.01)))
+#
+# # summary(floor(test_fcval[, 'cval']*10^2)/10^2 -
+# #           round(test_fcval[, 'cval_test'], 2))
+# # summary(floor(test_fcval[, 'cval']*10)/10 -
+# #           floor(test_fcval[, 'cval_test']*10)/10)
+#
+#
+# summary(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 4))
+# summary(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 3))
+# summary(test_fcval[, 'cval'] - round(test_fcval[, 'cval_test'], 2))
+#
+# summary(round(test_fcval[, 'cval'], 3) - round(test_fcval[, 'cval_test'], 3))
+# summary(round(test_fcval[, 'cval'], 2) - round(test_fcval[, 'cval_test'], 2))
+#
+# # Need to fine tune the critical values.
+#
+# # Some didn't evaluate:
+# summary(test_fcval[is.na(test_fcval[, 'cval_test']), ])
+# head(test_fcval[is.na(test_fcval[, 'cval_test']), ])
+# tail(test_fcval[is.na(test_fcval[, 'cval_test']), ])
+# # All cvals in the hundreds
+# # All ranks 9 or greater.
+#
+# which(is.na(test_fcval[, 'cval_test']))
 
 
 ##################################################
