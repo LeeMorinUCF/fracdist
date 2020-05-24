@@ -16,12 +16,14 @@
 #
 # fracdist_tables.R creates tables for fracdist
 #   critial values and p-values and organizes them
-#   in a form suitable for evaluation in Fortran.
+#   in a form suitable for an R package.
+# This script takes several attempts and the last
+#   version is implemented to make the tables
+#   available internally.
+# That last block of code is stored in the data-raw folder.
 #
 # Dependencies:
 #   None.
-#
-# TODO: Revise output file headings for csv file format.
 #
 ##################################################
 
@@ -34,7 +36,7 @@
 rm(list=ls(all=TRUE))
 
 # Set working directory.
-wd_path <- '~/Research/FCVAR'
+wd_path <- '~/Research/FCVAR/GitRepo/fracdist'
 
 # Set data directory.
 data_dir <- '~/Research/FCVAR/fracdist/mn-files'
@@ -184,109 +186,259 @@ summary(check_frtab)
 # get_fracdist_tab(iq, iscon, dir_name, file_ext = 'txt')
 
 
+##################################################
+# Definition of tables
+##################################################
+
+# Separate tables loaded in same format as those
+# for Fortran version, except in rda format.
+
 
 ##################################################
-# Generate Test Cases
+# First version of Tables: External Data
+# Note: Data not needed as external data.
+# Revised below
 ##################################################
 
-# Set lists of input variables.
-iscon_list <- c(0, 1)
-iq_list <- seq(12)
-clevel_list <- c(0.10, 0.05, 0.01)
-num_bb <- 10
-num_stat <- 10
-set.seed(42)
-bb_list <- runif(num_bb, min = 0.50, max = 2.0)
-stat_inv_list <- runif(num_stat, min = 0.80, max = 1.0)
+
+# This sets up the folder and files for supporting the fracdist package.
+data_dir <- '~/Research/FCVAR/fracdist_Fortran/mn-files'
+
+frmapp01 <- get_fracdist_tab(iq = 1, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp01, frmapp01)
+# Warning: Saving duplicates only once: 'frmapp01'
+# check Creating 'data/'
+# check Saving 'frmapp01' to 'data/frmapp01.rda'
 
 
-# Create two tables, one for each function.
+# Repeat for all tables.
+frmapp02 <- get_fracdist_tab(iq = 2, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp02, frmapp02)
+frmapp03 <- get_fracdist_tab(iq = 3, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp03, frmapp03)
+frmapp04 <- get_fracdist_tab(iq = 4, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp04, frmapp04)
+frmapp05 <- get_fracdist_tab(iq = 5, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp05, frmapp05)
+frmapp06 <- get_fracdist_tab(iq = 6, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp06, frmapp06)
+frmapp07 <- get_fracdist_tab(iq = 7, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp07, frmapp07)
+frmapp08 <- get_fracdist_tab(iq = 8, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp08, frmapp08)
+frmapp09 <- get_fracdist_tab(iq = 9, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp09, frmapp09)
+frmapp10 <- get_fracdist_tab(iq = 10, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp10, frmapp10)
+frmapp11 <- get_fracdist_tab(iq = 11, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp11, frmapp11)
+frmapp12 <- get_fracdist_tab(iq = 12, iscon = 0,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frmapp12, frmapp12)
 
 
-# Test p-values for a variety of values of the statistic.
-test_fpval <- expand.grid(bb = bb_list,
-                          iscon = iscon_list,
-                          stat = rep(NA, num_stat),
-                          iq = iq_list)
-# Draw test statistic values from the corresponding chi-squared distribution.
-iq_length <- 2*num_bb*num_stat
-for (iq_num in 1:length(iq_list)) {
+# Repeat for models with constant.
+frcapp01 <- get_fracdist_tab(iq = 1, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp01, frcapp01)
+frcapp02 <- get_fracdist_tab(iq = 2, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp02, frcapp02)
+frcapp03 <- get_fracdist_tab(iq = 3, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp03, frcapp03)
+frcapp04 <- get_fracdist_tab(iq = 4, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp04, frcapp04)
+frcapp05 <- get_fracdist_tab(iq = 5, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp05, frcapp05)
+frcapp06 <- get_fracdist_tab(iq = 6, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp06, frcapp06)
+frcapp07 <- get_fracdist_tab(iq = 7, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp07, frcapp07)
+frcapp08 <- get_fracdist_tab(iq = 8, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp08, frcapp08)
+frcapp09 <- get_fracdist_tab(iq = 9, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp09, frcapp09)
+frcapp10 <- get_fracdist_tab(iq = 10, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp10, frcapp10)
+frcapp11 <- get_fracdist_tab(iq = 11, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp11, frcapp11)
+frcapp12 <- get_fracdist_tab(iq = 12, iscon = 1,
+                             dir_name = data_dir, file_ext = 'txt')
+usethis::use_data(frcapp12, frcapp12)
 
-  iq <- iq_list[iq_num]
-  row_sel <- seq((iq_num - 1)*iq_length + 1, iq_num*iq_length)
-  test_fpval[row_sel, 'stat'] <- qchisq(p = rep(stat_inv_list, 2*num_bb),
-                                        df = iq^2)
 
-}
-# Reorder the columns.
-test_fpval <- test_fpval[, c('iscon', 'iq', 'bb', 'stat')]
-summary(test_fpval)
-head(test_fpval)
-tail(test_fpval)
+# Then run
+# usethis::use_data()
+# usethis::use_data(my_dataset, my_dataset)
+# Warning: Saving duplicates only once: 'votingJNP2014'
+# check Creating 'data/'
+# check Saving 'votingJNP2014' to 'data/votingJNP2014.rda'
+
+# You should also make sure that the data has been optimally compressed:
+# Run
+tools::checkRdaFiles('data/frmapp01.rda')
+# size ASCII compress version
+# data/frmapp01.rda 57512 FALSE    bzip2       2
+# to determine the best compression for each file.
+# So, the best compression is 'bzip2', which is the default, so we're good.
+# The file is already quite small.
+
+# Otherwise:
+# Re-run
+# usethis::use_data(votingJNP2014, votingJNP2014, compress = 'whatever')
+# with compress set to that optimal value.
+# If you've lost the code for recreating the files, you can use
+# tools::resaveRdaFiles()
+# to re-save in place.
 
 
-# Test critical values for conventional significance levels.
-test_fcval <- expand.grid(bb = bb_list,
-                          iscon = iscon_list,
-                          clevel = clevel_list,
-                          iq = iq_list)
-test_fcval <- test_fcval[, c('iscon', 'iq', 'bb', 'clevel')]
-# test_fcval <- test_fcval[order(test_fcval$), ]
-summary(test_fcval)
-head(test_fcval)
-tail(test_fcval)
+# Test datasets.
+test_data1 <- get_fracdist_tab(iq = 1, iscon = 0)
+summary(test_data1)
+summary(frmapp01)
+summary(test_data1 - frmapp01)
+
+test_data2 <- get_fracdist_tab(iq = 12, iscon = 1)
+summary(test_data2)
+summary(frcapp12)
+summary(test_data2 - frcapp12)
 
 
-# Save the files in fixed-width format.
-# Yes, I know this is slow but I want to control the formatting
-# the way I would read it in Fortran.
-out_file_name <- 'test_fpval.txt'
-out_file_name <- sprintf('%s/%s', out_dir, out_file_name)
-cat(sprintf('%s\n', paste(colnames(test_fpval), collapse = ' ')),
-    file = out_file_name)
-for (line in 1:nrow(test_fpval)) {
+# Load table of ginv values from Fortran code.
+data_dir <- '~/Research/FCVAR/GitRepo/fracdist/dev/fracdist_Fortran/ginv_tests'
+in_file_name <- sprintf('%s/test_ginv.csv', data_dir)
+ginv_tab <- read.csv(in_file_name, header = FALSE)
+ginv_col <- sprintf('iq_%d', seq(12))
+colnames(ginv_tab) <- c('probs', ginv_col)
 
-  cat(sprintf('%d ', test_fpval[line, 'iscon']),
-      file = out_file_name, append = TRUE)
-  iq <- test_fpval[line, 'iq']
-  if (iq >= 10) {
-    cat(sprintf('%d ', iq),
-        file = out_file_name, append = TRUE)
-  } else {
-    cat(sprintf(' %d ', iq),
-        file = out_file_name, append = TRUE)
+summary(ginv_tab)
+
+# Add to the data folder in the package.
+usethis::use_data(ginv_tab, ginv_tab)
+
+
+
+
+
+##################################################
+# Second version: Store tables as internal data
+##################################################
+
+# Example:
+# usethis::use_data(x, mtcars, internal = TRUE)
+
+
+# Load table of ginv values from Fortran code.
+data_dir <- '~/Research/FCVAR/GitRepo/fracdist/dev/fracdist_Fortran/ginv_tests'
+in_file_name <- sprintf('%s/test_ginv.csv', data_dir)
+ginv_tab <- read.csv(in_file_name, header = FALSE)
+ginv_col <- sprintf('iq_%d', seq(12))
+colnames(ginv_tab) <- c('probs', ginv_col)
+
+summary(ginv_tab)
+
+# Test:
+# Add to the internal data folder in the package.
+# usethis::use_data(ginv_tab, ginv_tab, internal = TRUE)
+# Warning: Saving duplicates only once: 'ginv_tab'
+# check Saving 'ginv_tab' to 'R/sysdata.rda'
+
+# Add all tables together in one call to use_data().
+
+
+# Now load tables of quantiles.
+
+# This sets up the folder and files for supporting the fracdist package.
+
+# Set directory where txt files of quantiles are stored for the Fortran version.
+data_dir <- '~/Research/FCVAR/fracdist_Fortran/mn-files'
+
+
+for (iq in seq(12)) {
+
+  for (iscon in c(0, 1)) {
+
+    # Read text file version of table from Fortran package.
+    frtab <- get_fracdist_tab(iq = iq, iscon = iscon,
+                              dir_name = data_dir, file_ext = 'txt')
+
+
+    # Determine corresponding file name for output.
+
+    # Depends on whether or not there is a constant term.
+    if (iscon == 0) {
+      dfirst = 'frmapp'
+    } else {
+      dfirst = 'frcapp'
+    }
+
+    # Depends on the (difference in) cointerating ranks.
+    dq <- sprintf('00%d', iq)
+    dq <- substr(dq, nchar(dq) - 1, nchar(dq))
+
+
+    # out_file_name <- sprintf('%s/%s%s.RData', out_dir, dfirst, dq)
+    tab_name <- sprintf('%s%s', dfirst, dq)
+
+    # Assign this table to a particular variable in memory.
+    assign(x = tab_name, value = frtab)
+
+    # Save the file in a compressed format suitable for R.
+    # save(frtab, file = out_file_name)
+    # Note that this gave them all the same names.
+    # Replaced them in fracdist_init1.R and fracdist_tables2.R.
+
   }
-  cat(sprintf('%5.3f ', test_fpval[line, 'bb']),
-      file = out_file_name, append = TRUE)
-  cat(sprintf('%8.4f\n', test_fpval[line, 'stat']),
-      file = out_file_name, append = TRUE)
 
 }
 
 
-# Save the files in fixed-width format.
-out_file_name <- 'test_fcval.txt'
-out_file_name <- sprintf('%s/%s', out_dir, out_file_name)
-cat(sprintf('%s\n', paste(colnames(test_fcval), collapse = ' ')),
-    file = out_file_name)
-for (line in 1:nrow(test_fcval)) {
 
-  cat(sprintf('%d ', test_fcval[line, 'iscon']),
-      file = out_file_name, append = TRUE)
-  iq <- test_fcval[line, 'iq']
-  if (iq >= 10) {
-    cat(sprintf('%d ', iq),
-        file = out_file_name, append = TRUE)
-  } else {
-    cat(sprintf(' %d ', iq),
-        file = out_file_name, append = TRUE)
-  }
-  cat(sprintf('%5.3f ', test_fcval[line, 'bb']),
-      file = out_file_name, append = TRUE)
-  cat(sprintf('%4.2f\n', test_fcval[line, 'clevel']),
-      file = out_file_name, append = TRUE)
 
-}
+
+# Save all tables together:
+usethis::use_data(frmapp01, frmapp02, frmapp03,
+                  frmapp04, frmapp05, frmapp06,
+                  frmapp07, frmapp08, frmapp09,
+                  frmapp10, frmapp11, frmapp12,
+                  frcapp01, frcapp02, frcapp03,
+                  frcapp04, frcapp05, frcapp06,
+                  frcapp07, frcapp08, frcapp09,
+                  frcapp10, frcapp11, frcapp12,
+                  ginv_tab, internal = TRUE)
+
+# check Saving
+# 'frmapp01', 'frmapp02', 'frmapp03',
+# 'frmapp04', 'frmapp05', 'frmapp06',
+# 'frmapp07', 'frmapp08', 'frmapp09',
+# 'frmapp10', 'frmapp11', 'frmapp12',
+# 'frcapp01', 'frcapp02', 'frcapp03',
+# 'frcapp04', 'frcapp05', 'frcapp06',
+# 'frcapp07', 'frcapp08', 'frcapp09',
+# 'frcapp10', 'frcapp11', 'frcapp12',
+# 'ginv_tab' to 'R/sysdata.rda'
+
+
 
 
 ##################################################
