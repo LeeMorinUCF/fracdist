@@ -439,6 +439,8 @@ usethis::use_data(frmapp01, frmapp02, frmapp03,
 # 'ginv_tab' to 'R/sysdata.rda'
 
 
+# Declare data as internal.
+
 
 
 ##################################################
