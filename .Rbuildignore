@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^dev$
 ^data-raw$
+^\.gitignore$
+^README\.md$

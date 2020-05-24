@@ -192,10 +192,10 @@ load_all()
 
 
 # Data for lookup tables.
-# See fracdist_tables.R in the dev folder.
+# See fracdist_tables.R in the data-raw folder.
 
 # This sets up the folder and files for supporting the fracdist package.
-data_dir <- '~/Research/FCVAR/fracdist_Fortran/mn-files'
+# data_dir <- '~/Research/FCVAR/fracdist_Fortran/mn-files'
 
 # Example:
 # frmapp01 <- get_fracdist_tab(iq = 1, iscon = 0,
@@ -220,5 +220,11 @@ usethis::use_testthat()
 # dot Call `use_test()` to initialize a basic test file and open it for editing.
 
 
+# Ignoring files not included in R packages.
+# usethis::use_build_ignore('.gitignore')
+# check Adding '^\\.gitignore$' to '.Rbuildignore'
+#
+# usethis::use_build_ignore('README.md')
+# check Adding '^README\\.md$' to '.Rbuildignore'
 
 

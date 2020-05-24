@@ -7,14 +7,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "lealand.morin@ucf.edu",
            comment = c(ORCID = "0000-0001-8539-1386"))
-Description: Numerical asymptotic distribution functions of likelihood ratio tests for 
-    fractional unit roots and cointegration rank. Because these distributions depend 
-    on a real-valued parameter b which must be estimated, simple tabulation is not 
-    feasible. Instead, response surface regressions are used to obtain the numerical 
-    distribution functions and combined by model averaging. As a function of the 
-    dimension of the problem, q, and a value of the fractional integration order b, 
-    this provides either a set of critical values or the asymptotic P-value for any 
-    value of the likelihood ratio statistic.
+Description: Numerical asymptotic distribution functions of likelihood ratio tests for fractional 
+    unit roots and cointegration rank. From these distributions, the included functions calculate 
+    critial values and p-values for unit root and cointegration tests and for rank tests in the 
+    Fractionally Cointegrated Vector Autoregression (FCVAR) model.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
