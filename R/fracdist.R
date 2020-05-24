@@ -234,7 +234,7 @@ blocal <- function(nb = 31, bb, estcrit, bval) {
   yx_mat[1:nobs, 'x2'] <- weight[weight_sel]*bval[weight_sel]
   yx_mat[1:nobs, 'x3'] <- weight[weight_sel]*bval[weight_sel]^2
 
-  lm_olsqc <- lm(formula = y ~ x1 + x2 + x3 - 1, data = yx_mat)
+  lm_olsqc <- stats::lm(formula = y ~ x1 + x2 + x3 - 1, data = yx_mat)
 
   bfit <- sum(lm_olsqc$coefficients*bb^seq(0,2))
 
@@ -357,12 +357,12 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
   }
 
   # Run regression and obtain p-value.
-  lm_olsqc <- lm(formula = y ~ x1 + x2 + x3 - 1, data = yx_mat)
+  lm_olsqc <- stats::lm(formula = y ~ x1 + x2 + x3 - 1, data = yx_mat)
 
   crfit <- sum(lm_olsqc$coefficients*stat^seq(0,2))
   crfit <- max(crfit, 10^(-6))
 
-  pval <- pchisq(crfit, df = ndf)
+  pval <- stats::pchisq(crfit, df = ndf)
   pval <- 1.0 - pval
 
 
@@ -420,7 +420,7 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
   }
 
   # Obtain inverse CDF of the Chi-squared distribution.
-  # ginv <- qchisq(probs, df = iq^2)
+  # ginv <- stats::qchisq(probs, df = iq^2)
   ginv <- ginv_tab[, sprintf('iq_%d', iq)]
   # In the interpolation regressions, this is the regressand
   # for fpval and the regressors for fpcrit.
@@ -490,7 +490,7 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
   imin <- which.min(diff)[1]
   diffm <- diff[imin]
 
-  gcq <- qchisq(cquant, df = ndf)
+  gcq <- stats::qchisq(cquant, df = ndf)
 
   # nph <- npts/2
   nph <- floor(npts/2)
@@ -546,7 +546,7 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
   }
 
   # Run regression and obtain critical value.
-  lm_olsqc <- lm(formula = y ~ x1 + x2 + x3 - 1, data = yx_mat)
+  lm_olsqc <- stats::lm(formula = y ~ x1 + x2 + x3 - 1, data = yx_mat)
 
   ccrit <- sum(lm_olsqc$coefficients*gcq^seq(0,2))
 
@@ -610,12 +610,12 @@ fracdist_values <- function(iq, iscon, dir_name = NULL, bb, stat,
     if (ipc == TRUE) {
 
       # Calculate p-values.
-      outval <- 1 - pchisq(q = stat, df = iq^2)
+      outval <- 1 - stats::pchisq(q = stat, df = iq^2)
 
     } else {
 
       # Calculate critical values.
-      outval <- qchisq(p = 1 - clevel, df = iq^2)
+      outval <- stats::qchisq(p = 1 - clevel, df = iq^2)
 
     }
 
@@ -643,7 +643,7 @@ fracdist_values <- function(iq, iscon, dir_name = NULL, bb, stat,
     }
 
     # Obtain inverse CDF of the Chi-squared distribution.
-    # ginv <- qchisq(probs, df = iq^2)
+    # ginv <- stats::qchisq(probs, df = iq^2)
     ginv <- ginv_tab[, sprintf('iq_%d', iq)]
     # In the interpolation regressions, this is the regressand
     # for fpval and the regressors for fpcrit.
@@ -672,66 +672,6 @@ fracdist_values <- function(iq, iscon, dir_name = NULL, bb, stat,
 
   return(outval)
 }
-
-
-##################################################
-# Testing
-##################################################
-
-
-
-# Testing critical values.
-
-
-# With precalculated values from given bb and iq.
-# ccrit <- fpcrit(npts = 9, iq, clevel = 0.05, probs, bedf, ginv)
-# print(ccrit)
-#
-# for (clevel_i in c(0.01, 0.05, 0.10)) {
-#   ccrit <- fpcrit(npts = 9, iq, clevel = clevel_i, probs, bedf, ginv)
-#   print(ccrit)
-# }
-
-# fracdist_out <- fracdist_values(iq, iscon, dir_name, bb, stat,
-#                                 ipc = FALSE, clevel = 0.05)
-# print(fracdist_out)
-#
-# fracdist_out <- fracdist_values(iq, iscon, dir_name, bb, stat,
-#                                 ipc = FALSE)
-# print(fracdist_out)
-
-
-# Testing p-values.
-
-# # Using function specifically for p-values:
-# pval <- fracdist_pvalues(iq = 1, iscon = 0, dir_name = data_dir,
-#                          bb = 0.73, stat = 3.84)
-# print(pval)
-#
-# pval <- fracdist_pvalues(iq = 12, iscon = 0, dir_name = data_dir,
-#                          bb = 0.73, stat = 84)
-# print(pval)
-
-
-
-# fracdist_out <- fracdist_values(iq = 1, iscon = 0, dir_name = data_dir,
-#                                 bb = 0.73, stat = 3.84)
-# print(fracdist_out)
-#
-# fracdist_out <- fracdist_values(iq = 12, iscon = 0, dir_name = data_dir,
-#                                 bb = 0.73, stat = 3.84)
-# print(fracdist_out)
-#
-# fracdist_out <- fracdist_values(iq = 12, iscon = 0, dir_name = data_dir,
-#                                 bb = 0.73, stat = 84)
-# print(fracdist_out)
-# # Fail: Gives p-value for 3.84. Should be 1.00.
-
-# fracdist_out <- fracdist_values(iq = 12, iscon = 0, dir_name = data_dir,
-#                                 bb = 0.73, stat = 184)
-# print(fracdist_out)
-
-
 
 
 
