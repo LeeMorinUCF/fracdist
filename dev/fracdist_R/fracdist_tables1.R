@@ -2,7 +2,7 @@
 ##################################################
 #
 # Fractionally Cointegrated VAR Model
-# Test Cases for Critical Values and P-values
+# Tables for Calculating Critical Values and P-values
 #
 # Lealand Morin, Ph.D.
 # Assistant Professor
@@ -440,7 +440,13 @@ usethis::use_data(frmapp01, frmapp02, frmapp03,
 
 
 # Declare data as internal.
-
+# usethis::use_data_raw()
+# check Creating 'data-raw/'
+# check Adding '^data-raw$' to '.Rbuildignore'
+# check Writing 'data-raw/DATASET.R'
+# - Modify 'data-raw/DATASET.R'
+# - Finish the data preparation script in 'data-raw/DATASET.R'
+# - Use `usethis::use_data()` to add prepared data to package
 
 
 ##################################################
