@@ -41,7 +41,7 @@ for (i in 1:length(probs)) {
 fpval(npts = 9, iq = 3, stat = 3.84, probs, bedf, ginv = qchisq(probs, df = 3^2))
 }
 \references{
-James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 }

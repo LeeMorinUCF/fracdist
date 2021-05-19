@@ -11,7 +11,7 @@
 # College of Business Administration
 # University of Central Florida
 #
-# May 19, 2020
+# May 19, 2021
 #
 ##################################################
 #
@@ -31,30 +31,33 @@
 #'
 #' A package for calculating numerical distribution functions of fractional
 #' unit root and cointegration tests. The included functions calculate
-#' critial values and p-values for unit root and cointegration tests
-#' and for rank tests in the Fractionally Cointegrated Vector
+#' critial values and P-values used in unit root tests, cointegration tests,
+#' and rank tests in the Fractionally Cointegrated Vector
 #' Autoregression (FCVAR) model (see Johansen and Nielsen, 2012).
 #'
 #' Because these distributions depend
-#' on a real-valued parameter b which must be estimated, simple tabulation is not
+#' on a real-valued parameter \code{b} which must be estimated, simple tabulation is not
 #' feasible. Instead, response surface regressions are used to obtain the numerical
 #' distribution functions and combined by model averaging. As a function of the
-#' dimension of the problem, q, and a value of the fractional integration order b,
+#' dimension of the problem, \code{q}, and a value of the fractional integration order \code{b},
 #' this provides either a set of critical values or the asymptotic P-value for any
 #' value of the likelihood ratio statistic.
+#' The P-values and critical values are calculated by interpolating from the
+#' quantiles on a grid of probabilities and values of the fractional integration order,
+#' with separate tables for a range of values of cointegrating rank.
 #'
 #' The functions in this package are based on the functions and subroutines in the
 #' Fortran program \code{fracdist.f} to accompany an article by MacKinnon and Nielsen (2014).
 #' This program is available from the archive of the Journal of Applied Econometrics
 #' at \url{http://qed.econ.queensu.ca/jae/datasets/mackinnon004/}.
-#' An alternative C++ implementation of this program is also available; see
+#' Alternatively, a C++ implementation of this program is also available; see
 #' \url{https://github.com/jagerman/fracdist/blob/master/README.md} for details.
 #'
-#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
-#' @references Johansen, S. and M. \enc{O}{O}. Nielsen (2012).
-#' "Likelihood inference for a fractionally cointegrated vector autore-gressive model,"
+#' @references Johansen, S. and M. \enc{Ø}{O}. Nielsen (2012).
+#' "Likelihood inference for a fractionally cointegrated vector autoregressive model,"
 #' Econometrica 80, pp.2667-2732.
 #'
 #' @docType package
@@ -83,7 +86,7 @@ NULL
 #' can be obtained in \code{'txt'} format. See the reference for details.
 #' @examples
 #' frtab <- get_fracdist_tab(iq = 1, iscon = 0)
-#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 #' @export
@@ -193,7 +196,7 @@ get_fracdist_tab <- function(iq, iscon, dir_name = NULL,
 #' probs <- unique(frtab[, 'probs'])
 #' estcrit <- frtab[frtab[, 'probs'] == probs[201], 'xndf']
 #' bedf_i <- blocal(nb = 31, bb = 0.75, estcrit, bval)
-#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 #' @note The fractional integration parameter \code{b} must lie within
@@ -269,7 +272,7 @@ blocal <- function(nb = 31, bb, estcrit, bval) {
 #'     bedf[i] <- blocal(nb = 31, bb = 0.75, estcrit, bval)
 #' }
 #' fpval(npts = 9, iq = 3, stat = 3.84, probs, bedf, ginv = qchisq(probs, df = 3^2))
-#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 #' @seealso \code{fracdist_pvalues} for the calculation of P-values including any
@@ -389,7 +392,7 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
 #' @param stat A numeric scalar value of the test statistic.
 #' @examples
 #' fracdist_pvalues(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
-#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 #' @seealso Calls \code{fpval} for the calculation of P-values after
@@ -458,7 +461,7 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
 #'     bedf[i] <- blocal(nb = 31, bb = 0.75, estcrit, bval)
 #' }
 #' fpcrit(npts = 9, iq = 3, clevel = 0.05, probs, bedf, ginv = qchisq(probs, df = 3^2))
-#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 #' @seealso fracdist_values for the calculation of critical values and
@@ -585,10 +588,10 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.73, ipc = FALSE, clevel = 0.05)
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.43, ipc = FALSE, clevel = 0.05)
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.73, ipc = FALSE)
-#' @references James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+#' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 #' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
-#' @references Johansen, S. and M. \enc{O}{O}. Nielsen (2012).
+#' @references Johansen, S. and M. \enc{Ø}{O}. Nielsen (2012).
 #' "Likelihood inference for a fractionally cointegrated vector autoregressive model,"
 #' Econometrica 80, pp.2667-2732.
 #' @seealso Calls \code{fpval} to calculate P-values

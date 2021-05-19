@@ -31,6 +31,7 @@ rm(list=ls(all=TRUE))
 
 
 # Check that the package development tools are installed correctly
+install.packages("devtools")
 library(devtools)
 # Loading required package: usethis
 # Warning messages:

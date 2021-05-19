@@ -1,5 +1,5 @@
 
-context("Low Fractional Integration Order")
+message("   Low Fractional Integration Order")
 
 
 test_that("P-values are calculated correctly", {

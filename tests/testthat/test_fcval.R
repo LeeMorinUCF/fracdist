@@ -1,5 +1,5 @@
 
-context("Critical Values")
+message("   Critical Values")
 
 
 test_that("Critical values are calculated correctly", {

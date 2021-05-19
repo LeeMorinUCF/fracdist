@@ -39,7 +39,7 @@ estcrit <- frtab[frtab[, 'probs'] == probs[201], 'xndf']
 bedf_i <- blocal(nb = 31, bb = 0.75, estcrit, bval)
 }
 \references{
-James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 }

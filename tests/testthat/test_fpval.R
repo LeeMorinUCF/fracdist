@@ -1,5 +1,5 @@
 
-context("P-values")
+message("   P-values")
 
 
 test_that("P-values are calculated correctly", {

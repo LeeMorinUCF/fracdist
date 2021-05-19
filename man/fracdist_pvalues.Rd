@@ -30,7 +30,7 @@ statistic.
 fracdist_pvalues(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
 }
 \references{
-James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 }

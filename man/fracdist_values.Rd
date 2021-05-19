@@ -56,11 +56,11 @@ fracdist_values(iq = 1, iscon = 0, bb = 0.43, ipc = FALSE, clevel = 0.05)
 fracdist_values(iq = 1, iscon = 0, bb = 0.73, ipc = FALSE)
 }
 \references{
-James G. MacKinnon and Morten \enc{O}{O}rregaard Nielsen,
+James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
 "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
 
-Johansen, S. and M. \enc{O}{O}. Nielsen (2012).
+Johansen, S. and M. \enc{Ø}{O}. Nielsen (2012).
 "Likelihood inference for a fractionally cointegrated vector autoregressive model,"
 Econometrica 80, pp.2667-2732.
 }
