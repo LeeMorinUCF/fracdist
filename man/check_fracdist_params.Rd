@@ -24,13 +24,16 @@ It is not intended to be used externally but might help diagnose
 error messages from improperly chosen arguments.
 }
 \examples{
-\dontrun{
-check_fracdist_params(list(iq = 2, iscon = 7))
-check_fracdist_params(list(iq = 13, iscon = 1))
-check_fracdist_params(list(iq = 12, iscon = 1, bb = -0.5))
-check_fracdist_params(list(iq = 12, iscon = 1, bb = 2.5))
-check_fracdist_params(list(iq = 1, iscon = 1, clevel = 2.5))
-}
+# Test with iscon = 7 to see error message:
+check_fracdist_params(list(iq = 2, iscon = 1))
+# Test with iq = 13 to see error message:
+check_fracdist_params(list(iq = 12, iscon = 1))
+# Test with bb = -0.5 to see error message:
+check_fracdist_params(list(iq = 12, iscon = 1, bb = 0.75))
+# Test with bb = 2.5 to see error message:
+check_fracdist_params(list(iq = 12, iscon = 1, bb = 1.5))
+# Test with clevel = 2.5 to see error message:
+check_fracdist_params(list(iq = 1, iscon = 1, clevel = 0.05))
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,

@@ -26,7 +26,7 @@ quantiles on a grid of probabilities and values of the fractional integration or
 with separate tables for a range of values of co-integrating rank.
 
 The functions in this package are based on the functions and subroutines 
-in the Fortran program *fracdist.f* 
+in the Fortran program ```fracdist.f```
 to accompany an article by MacKinnon and Nielsen (2014).
 This program is available from the archive 
 of the *Journal of Applied Econometrics* at
@@ -94,6 +94,7 @@ devtools::install_github("LeeMorinUCF/fracdist")
 ## May 21, 2021: 
 Second submission after adjustments to documentation:
 * Shortened the package title to 63 characters.
+* Replaced examples to avoid using ```\dontrun``` environment. 
 
 
 
