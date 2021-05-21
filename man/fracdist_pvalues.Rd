@@ -2,13 +2,13 @@
 % Please edit documentation in R/fracdist.R
 \name{fracdist_pvalues}
 \alias{fracdist_pvalues}
-\title{Calculate P-values for Fractional Unit Root and Co-integration Tests}
+\title{Calculate P-values for Fractional Unit Root and Cointegration Tests}
 \usage{
 fracdist_pvalues(iq, iscon, dir_name = NULL, bb, stat)
 }
 \arguments{
 \item{iq}{An integer scalar rank parameter for the test, from 1 through 12.
-This is often the difference in co-integration rank.}
+This is often the difference in cointegration rank.}
 
 \item{iscon}{An indicator that there is a constant intercept
 term in the model.}
@@ -31,7 +31,7 @@ fracdist_pvalues(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 }
 \seealso{

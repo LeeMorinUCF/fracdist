@@ -2,7 +2,7 @@
 % Please edit documentation in R/fracdist.R
 \name{fpval}
 \alias{fpval}
-\title{Calculate P-values for Fractional Unit Root and Co-integration Tests}
+\title{Calculate P-values for Fractional Unit Root and Cointegration Tests}
 \usage{
 fpval(npts = 9, iq, stat, probs, bedf, ginv)
 }
@@ -12,7 +12,7 @@ of the EDF near the observed value of \code{stat}.
 It is usually 9, unless near a boundary.}
 
 \item{iq}{An integer scalar rank parameter for the test, from 1 through 12.
-This is often the difference in co-integration rank.}
+This is often the difference in cointegration rank.}
 
 \item{stat}{A numeric scalar value of the test statistic.}
 
@@ -43,7 +43,7 @@ fpval(npts = 9, iq = 3, stat = 3.84, probs, bedf, ginv = qchisq(probs, df = 3^2)
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 }
 \seealso{

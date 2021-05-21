@@ -3,14 +3,14 @@
 \docType{package}
 \name{.fracdist}
 \alias{.fracdist}
-\title{Numerical Distribution Functions of
-Fractional Unit Root and Co-integration Tests}
+\title{Numerical CDFs for
+Fractional Unit Root and Cointegration Tests}
 \description{
 A package for calculating numerical distribution functions of fractional
-unit root and co-integration tests. The included functions calculate
-critical values and P-values used in unit root tests, co-integration tests,
-and rank tests in the Fractionally Co-integrated Vector
-Autoregression (F.C.V.A.R.) model (see Johansen and Nielsen, 2012).
+unit root and cointegration test statistics. The included functions calculate
+critical values and P-values used in unit root tests, cointegration tests,
+and rank tests in the Fractionally Cointegrated Vector
+Autoregression (FCVAR) model (see Johansen and Nielsen, 2012).
 }
 \details{
 Simple tabulation is not a feasible approach for obtaining
@@ -25,7 +25,7 @@ this approach provides either a set of critical values or the asymptotic P-value
 for any value of the likelihood ratio statistic.
 The P-values and critical values are calculated by interpolating from the
 quantiles on a grid of probabilities and values of the fractional integration order,
-with separate tables for a range of values of co-integrating rank.
+with separate tables for a range of values of cointegrating rank.
 
 The functions in this package are based on the functions and subroutines in the
 Fortran program \code{fracdist.f} to accompany an article by MacKinnon and Nielsen (2014).
@@ -36,10 +36,10 @@ Alternatively, a C++ implementation of this program is also available; see
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 
 Johansen, S. and M. \enc{Ø}{O}. Nielsen (2012).
-"Likelihood inference for a fractionally co-integrated vector autoregressive model,"
+"Likelihood inference for a fractionally cointegrated vector autoregressive model,"
 \emph{Econometrica} 80, pp.2667-2732.
 }

@@ -90,6 +90,14 @@ devtools::install_github("LeeMorinUCF/fracdist")
 
 ## Release Notes
 
+
+## May 21, 2021: 
+Second submission after adjustments to documentation:
+* Shortened the package title to 63 characters.
+
+
+
+
 ### May 20, 2021: 
 * First submission.
 * Added a `NEWS.md` file to track changes to the package.

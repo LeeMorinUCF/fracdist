@@ -2,7 +2,8 @@
 ##################################################
 #
 # Numerical Distribution Functions of
-# Fractional Unit Root and Co-integration Tests
+# Fractional Unit Root and Cointegration Tests
+#
 # Functions for Critical Values and P-values
 #
 # Lealand Morin, Ph.D.
@@ -15,9 +16,9 @@
 #
 ##################################################
 #
-# fracdist.R calculates critial values and p-values
-#   for unit root and co-integration tests and
-#   for rank tests in the F.C.V.A.R. model.
+# fracdist.R calculates critical values and p-values
+#   for unit root and cointegration tests and
+#   for rank tests in the FCVAR model.
 #
 # Dependencies:
 #   None.
@@ -26,14 +27,14 @@
 
 
 
-#' Numerical Distribution Functions of
-#' Fractional Unit Root and Co-integration Tests
+#' Numerical CDFs for
+#' Fractional Unit Root and Cointegration Tests
 #'
 #' A package for calculating numerical distribution functions of fractional
-#' unit root and co-integration tests. The included functions calculate
-#' critical values and P-values used in unit root tests, co-integration tests,
-#' and rank tests in the Fractionally Co-integrated Vector
-#' Autoregression (F.C.V.A.R.) model (see Johansen and Nielsen, 2012).
+#' unit root and cointegration test statistics. The included functions calculate
+#' critical values and P-values used in unit root tests, cointegration tests,
+#' and rank tests in the Fractionally Cointegrated Vector
+#' Autoregression (FCVAR) model (see Johansen and Nielsen, 2012).
 #'
 #' Simple tabulation is not a feasible approach for obtaining
 #' critical values and P-values because these distributions depend
@@ -47,7 +48,7 @@
 #' for any value of the likelihood ratio statistic.
 #' The P-values and critical values are calculated by interpolating from the
 #' quantiles on a grid of probabilities and values of the fractional integration order,
-#' with separate tables for a range of values of co-integrating rank.
+#' with separate tables for a range of values of cointegrating rank.
 #'
 #' The functions in this package are based on the functions and subroutines in the
 #' Fortran program \code{fracdist.f} to accompany an article by MacKinnon and Nielsen (2014).
@@ -57,10 +58,10 @@
 #' \url{https://github.com/jagerman/fracdist/blob/master/README.md} for details.
 #'
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @references Johansen, S. and M. \enc{Ø}{O}. Nielsen (2012).
-#' "Likelihood inference for a fractionally co-integrated vector autoregressive model,"
+#' "Likelihood inference for a fractionally cointegrated vector autoregressive model,"
 #' \emph{Econometrica} 80, pp.2667-2732.
 #'
 #' @docType package
@@ -77,7 +78,7 @@ NULL
 #' @param fracdist_params a list that may have the following elements:
 #' \itemize{
 #' \item \code{iq} An integer scalar rank parameter for the test, from 1 through 12.
-#' This is often the difference in co-integration rank.
+#' This is often the difference in cointegration rank.
 #' \item \code{iscon} An indicator that there is a constant intercept
 #' term in the model.
 #' \item \code{clevel} The numeric scalar level of significance.
@@ -93,7 +94,7 @@ NULL
 #' check_fracdist_params(list(iq = 1, iscon = 1, clevel = 2.5))
 #' }
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @export
 #'
@@ -156,7 +157,7 @@ check_fracdist_params <- function(fracdist_params) {
 #' integration parameter, corresponding to a particular rank
 #' or dimension and the specification of a constant term.
 #' @param iq An integer scalar rank parameter for the test, from 1 through 12.
-#' This is often the difference in co-integration rank.
+#' This is often the difference in cointegration rank.
 #' @param iscon An indicator that there is a constant intercept
 #' term in the model.
 #' @param dir_name A string name of directory in which the tables
@@ -174,7 +175,7 @@ check_fracdist_params <- function(fracdist_params) {
 #' @examples
 #' frtab <- get_fracdist_tab(iq = 1, iscon = 0)
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @export
 #'
@@ -291,7 +292,7 @@ get_fracdist_tab <- function(iq, iscon, dir_name = NULL,
 #' estcrit <- frtab[frtab[, 'probs'] == probs[201], 'xndf']
 #' bedf_i <- blocal(nb = 31, bb = 0.75, estcrit, bval)
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @note The fractional integration parameter \code{b} must lie within
 #' the interval \eqn{[0.50, 2]}. If \code{b} is less than 0.5,
@@ -340,7 +341,7 @@ blocal <- function(nb = 31, bb, estcrit, bval) {
 
 
 
-#' Calculate P-values for Fractional Unit Root and Co-integration Tests
+#' Calculate P-values for Fractional Unit Root and Cointegration Tests
 #'
 #' \code{fpval} calculates P-values for a particular value of the observed
 #' statistic and a set of intermediate calculations
@@ -349,7 +350,7 @@ blocal <- function(nb = 31, bb, estcrit, bval) {
 #' of the EDF near the observed value of \code{stat}.
 #' It is usually 9, unless near a boundary.
 #' @param iq An integer scalar rank parameter for the test, from 1 through 12.
-#' This is often the difference in co-integration rank.
+#' This is often the difference in cointegration rank.
 #' @param stat A numeric scalar value of the test statistic.
 #' @param probs A numeric vector of probabilities over which an approximating
 #' empirical distribution function is obtained, taken from precalculated tables.
@@ -368,7 +369,7 @@ blocal <- function(nb = 31, bb, estcrit, bval) {
 #' }
 #' fpval(npts = 9, iq = 3, stat = 3.84, probs, bedf, ginv = qchisq(probs, df = 3^2))
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @seealso \code{fracdist_pvalues} for the calculation of P-values including any
 #' intermediate calculations.
@@ -474,12 +475,12 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
 }
 
 
-#' Calculate P-values for Fractional Unit Root and Co-integration Tests
+#' Calculate P-values for Fractional Unit Root and Cointegration Tests
 #'
 #' \code{fracdist_pvalues} calculates P-values for a particular value of the observed
 #' statistic.
 #' @param iq An integer scalar rank parameter for the test, from 1 through 12.
-#' This is often the difference in co-integration rank.
+#' This is often the difference in cointegration rank.
 #' @param iscon An indicator that there is a constant intercept
 #' term in the model.
 #' @param dir_name A string name of directory in which the approximating tables
@@ -491,7 +492,7 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
 #' @examples
 #' fracdist_pvalues(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @seealso Calls \code{fpval} for the calculation of P-values after
 #' performing some intermediate calculations.
@@ -536,7 +537,7 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
 }
 
 
-#' Calculate Critical Values for Fractional Unit Root and Co-integration Tests
+#' Calculate Critical Values for Fractional Unit Root and Cointegration Tests
 #'
 #' \code{fcrit} calculates critical values for a particular level of significance
 #' and a set of intermediate calculations
@@ -545,7 +546,7 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
 #' of the EDF near the level of significance \code{clevel}.
 #' It is usually 9, unless near a boundary.
 #' @param iq An integer scalar rank parameter for the test, from 1 through 12.
-#' This is often the difference in co-integration rank.
+#' This is often the difference in cointegration rank.
 #' @param clevel The numeric scalar level of significance.
 #' @param probs A numeric vector of probabilities over which an approximating
 #' empirical distribution function is obtained, taken from precalculated tables.
@@ -564,7 +565,7 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
 #' }
 #' fpcrit(npts = 9, iq = 3, clevel = 0.05, probs, bedf, ginv = qchisq(probs, df = 3^2))
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @seealso fracdist_values for the calculation of critical values and
 #' P-values including any intermediate calculations.
@@ -665,12 +666,12 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 }
 
 
-#' Calculate Critical Values or P-values for Fractional Unit Root and Co-integration Tests
+#' Calculate Critical Values or P-values for Fractional Unit Root and Cointegration Tests
 #'
 #' \code{fracdist_values} calculates either critical Values or P-values for
-#' for fractional unit root and co-integration tests
+#' for fractional unit root and cointegration tests
 #' @param iq An integer scalar rank parameter for the test, from 1 through 12.
-#' This is often the difference in co-integration rank.
+#' This is often the difference in cointegration rank.
 #' @param iscon An indicator that there is a constant intercept
 #' term in the model.
 #' @param dir_name A string name of directory in which the approximating tables
@@ -694,10 +695,10 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.43, ipc = FALSE, clevel = 0.05)
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.73, ipc = FALSE)
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-#' "Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+#' "Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 #' \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 #' @references Johansen, S. and M. \enc{Ø}{O}. Nielsen (2012).
-#' "Likelihood inference for a fractionally co-integrated vector autoregressive model,"
+#' "Likelihood inference for a fractionally cointegrated vector autoregressive model,"
 #' \emph{Econometrica} 80, pp.2667-2732.
 #' @seealso Calls \code{fpval} to calculate P-values
 #' or \code{fpcrit} to calculate critical values,

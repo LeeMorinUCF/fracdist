@@ -10,7 +10,7 @@ check_fracdist_params(fracdist_params)
 \item{fracdist_params}{a list that may have the following elements:
 \itemize{
 \item \code{iq} An integer scalar rank parameter for the test, from 1 through 12.
-This is often the difference in co-integration rank.
+This is often the difference in cointegration rank.
 \item \code{iscon} An indicator that there is a constant intercept
 term in the model.
 \item \code{clevel} The numeric scalar level of significance.
@@ -34,6 +34,6 @@ check_fracdist_params(list(iq = 1, iscon = 1, clevel = 2.5))
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
 \emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 }
