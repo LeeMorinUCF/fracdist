@@ -2,7 +2,7 @@
 % Please edit documentation in R/fracdist.R
 \name{fracdist_values}
 \alias{fracdist_values}
-\title{Calculate Critical Values or P-values for Fractional Unit Root and Cointegration Tests}
+\title{Calculate Critical Values or P-values for Fractional Unit Root and Co-integration Tests}
 \usage{
 fracdist_values(
   iq,
@@ -15,8 +15,8 @@ fracdist_values(
 )
 }
 \arguments{
-\item{iq}{An integer scalar rank parameter for the test.
-This is often the difference in cointegration rank.}
+\item{iq}{An integer scalar rank parameter for the test, from 1 through 12.
+This is often the difference in co-integration rank.}
 
 \item{iscon}{An indicator that there is a constant intercept
 term in the model.}
@@ -26,7 +26,7 @@ are stored. This is not normally used, since suffucient tables are included in t
 However, a user might want to draw the tables from another location.}
 
 \item{bb}{The fractional integration parameter, which can take on values
-between 0.5 and 2.0.}
+between 0.0 and 2.0.}
 
 \item{stat}{A numeric scalar value of the test statistic. This is only
 used if P-values are required.}
@@ -40,7 +40,7 @@ calculate critical values for the conventional levels of significance:
 }
 \description{
 \code{fracdist_values} calculates either critical Values or P-values for
-for fractional unit root and cointegration tests
+for fractional unit root and co-integration tests
 }
 \note{
 For fractional integration orders between 0 and 0.5, the chi-square
@@ -57,12 +57,12 @@ fracdist_values(iq = 1, iscon = 0, bb = 0.73, ipc = FALSE)
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
-Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+\emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 
 Johansen, S. and M. \enc{Ø}{O}. Nielsen (2012).
-"Likelihood inference for a fractionally cointegrated vector autoregressive model,"
-Econometrica 80, pp.2667-2732.
+"Likelihood inference for a fractionally co-integrated vector autoregressive model,"
+\emph{Econometrica} 80, pp.2667-2732.
 }
 \seealso{
 Calls \code{fpval} to calculate P-values

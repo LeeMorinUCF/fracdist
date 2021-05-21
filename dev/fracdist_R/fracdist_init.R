@@ -123,7 +123,7 @@ create_package(path = fracdist_dir)
 
 
 ##################################################
-# Create documantation
+# Create documentation
 
 ##################################################
 
@@ -466,3 +466,107 @@ desc_add_author(given = "Lealand", family = "Morin",
 # devtools::build_manual()
 # Creates manual.
 # Now author is complete on manual.
+
+
+# Then R CMD check fracdist_...tar
+
+
+# Checks on Rhub:
+
+
+# > library(rhub)
+#
+# Attaching package: ‘rhub’
+#
+# The following object is masked from ‘package:devtools’:
+#
+#   check
+
+
+
+# > rhub_results <- rhub::check_for_cran()
+
+# ‘lealand.morin@ucf.edu’ is not validated, or does not match
+# the package maintainer's email. To validate it now, please enter the
+#   email address below. Note that R-hub will send a token to this address.
+#   If the address does not belong to you, quit now by pressing
+#   ENTER .
+#
+#   Email address: lealand.morin@ucf.edu
+#
+# Please check your emails for the R-hub access token.
+# Token: e1a0e897e6564095bfa7933ad7f352bd
+# Token added for ‘lealand.morin@ucf.edu’
+#
+# -  Building package
+# -  Uploading package
+# -  Preparing build, see status at
+#    https://builder.r-hub.io/status/fracdist_0.1.0.tar.gz-a3baa11e1244459980f801239f9cca47
+#    https://builder.r-hub.io/status/fracdist_0.1.0.tar.gz-981ca094ab4245e0ac850fb600d84ac8
+#    https://builder.r-hub.io/status/fracdist_0.1.0.tar.gz-1840636257bc4666aa45703d45d90950
+# -  Build started
+# -  Creating new user
+# -  Downloading and unpacking package file
+# -  Querying package dependencies
+# -  Installing package dependencies
+# -  Running R CMD check
+#    setting _R_CHECK_FORCE_SUGGESTS_ to false
+#    setting R_COMPILE_AND_INSTALL_PACKAGES to never
+#    setting _R_CHECK_THINGS_IN_CHECK_DIR_ to false
+#    setting R_REMOTES_STANDALONE to true
+#    setting R_REMOTES_NO_ERRORS_FROM_WARNINGS to true
+#    setting _R_CHECK_FORCE_SUGGESTS_ to true
+#    setting _R_CHECK_CRAN_INCOMING_USE_ASPELL_ to true
+#    Error: Bioconductor does not yet build and check packages for R version 4.2; see
+#    Execution halted
+#      https://bioconductor.org/install
+#
+#
+#    >>>>>============== Done with R CMD check
+#    +R-HUB-R-HUB-R-HUB Done.
+#
+#
+#    VERBOSE: Saving artifacts
+#    cp : Cannot find path 'C:\Users\USERRnIBhkJPUM\fracdist.Rcheck' because it
+#    does not exist.
+#    At C:\Users\rhub\workspace\fracdist_0.1.0.tar.gz-a3baa11e1244459980f801239f9cca
+#    47\run.ps1:187 char:1
+#    + cp -Recurse ( $homefull + "\" + $pkgname + ".Rcheck" ) $jobid | Out-N ...
+#    + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#        + CategoryInfo          : ObjectNotFound: (C:\Users\USERRnIBhkJPUM\fracdis
+#       t.Rcheck:String) [Copy-Item], ItemNotFoundException
+#        + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.CopyI
+#       temCommand
+#
+#    VERBOSE: Cleaning up, deleting files and user
+#    >>>>>============== Cleaning up files and user
+#    SUCCESS: The process with PID 1876 has been terminated.
+#    The command completed successfully.
+#
+#
+#
+#    SSH: Connecting from host [win-builder-3]
+#    SSH: Connecting with configuration [files] ...
+#    SSH: Disconnecting configuration [files] ...
+#    SSH: Transferred 0 file(s)
+#    Build step 'Send files or execute commands over SSH' changed build result to SUCCESS
+#    Pinging https://builder.r-hub.io/build/SUCCESS/fracdist_0.1.0.tar.gz-a3baa11e1244459980f801239f9cca47/2021-05-20T23:03:49Z
+#    {"status":"ok"}
+#    Finished: SUCCESS
+#
+#
+#
+
+
+# rhub_results$cran_summary()
+#
+# Error: Build failures on platforms: windows-x86_64-devel .
+# Read the log(s) to fix and if needed ask for help via
+# https://docs.r-hub.io/#pkg-dev-help
+
+# 2 NOTEs (Linux and Mac OS) about spelling Co-Integration in title case.
+# 1 ERROR because Rhub can't test for R > 4.2 on Windows.
+
+
+
+

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fracdist.R
 \name{fpval}
 \alias{fpval}
-\title{Calculate P-values for Fractional Unit Root and Cointegration Tests}
+\title{Calculate P-values for Fractional Unit Root and Co-integration Tests}
 \usage{
 fpval(npts = 9, iq, stat, probs, bedf, ginv)
 }
@@ -11,8 +11,8 @@ fpval(npts = 9, iq, stat, probs, bedf, ginv)
 of the EDF near the observed value of \code{stat}.
 It is usually 9, unless near a boundary.}
 
-\item{iq}{An integer scalar rank parameter for the test.
-This is often the difference in cointegration rank.}
+\item{iq}{An integer scalar rank parameter for the test, from 1 through 12.
+This is often the difference in co-integration rank.}
 
 \item{stat}{A numeric scalar value of the test statistic.}
 
@@ -27,7 +27,8 @@ depending on the particular model. Each element is the output of the function \c
 }
 \description{
 \code{fpval} calculates P-values for a particular value of the observed
-statistic and a set of intermediate calculations.
+statistic and a set of intermediate calculations
+that are output from other functions in the \code{fracdist} package.
 }
 \examples{
 frtab <- get_fracdist_tab(iq = 3, iscon = 0)
@@ -42,8 +43,8 @@ fpval(npts = 9, iq = 3, stat = 3.84, probs, bedf, ginv = qchisq(probs, df = 3^2)
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
-Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+\emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 }
 \seealso{
 \code{fracdist_pvalues} for the calculation of P-values including any

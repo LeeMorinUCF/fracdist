@@ -2,19 +2,19 @@
 % Please edit documentation in R/fracdist.R
 \name{fracdist_pvalues}
 \alias{fracdist_pvalues}
-\title{Calculate P-values for Fractional Unit Root and Cointegration Tests}
+\title{Calculate P-values for Fractional Unit Root and Co-integration Tests}
 \usage{
 fracdist_pvalues(iq, iscon, dir_name = NULL, bb, stat)
 }
 \arguments{
-\item{iq}{An integer scalar rank parameter for the test.
-This is often the difference in cointegration rank.}
+\item{iq}{An integer scalar rank parameter for the test, from 1 through 12.
+This is often the difference in co-integration rank.}
 
 \item{iscon}{An indicator that there is a constant intercept
 term in the model.}
 
 \item{dir_name}{A string name of directory in which the approximating tables
-are stored. This is not normally used, since suffucient tables are included in the package.
+are stored. This is not normally used, since sufficient tables are included in the package.
 However, a user might want to draw the tables from another location.}
 
 \item{bb}{The fractional integration parameter, which can take on values
@@ -31,8 +31,8 @@ fracdist_pvalues(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
-Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+\emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 }
 \seealso{
 Calls \code{fpval} for the calculation of P-values after

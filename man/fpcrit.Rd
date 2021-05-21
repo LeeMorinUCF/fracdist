@@ -2,7 +2,7 @@
 % Please edit documentation in R/fracdist.R
 \name{fpcrit}
 \alias{fpcrit}
-\title{Calculate Critical Values for Fractional Unit Root and Cointegration Tests}
+\title{Calculate Critical Values for Fractional Unit Root and Co-integration Tests}
 \usage{
 fpcrit(npts = 9, iq, clevel, probs, bedf, ginv)
 }
@@ -11,8 +11,8 @@ fpcrit(npts = 9, iq, clevel, probs, bedf, ginv)
 of the EDF near the level of significance \code{clevel}.
 It is usually 9, unless near a boundary.}
 
-\item{iq}{An integer scalar rank parameter for the test.
-This is often the difference in cointegration rank.}
+\item{iq}{An integer scalar rank parameter for the test, from 1 through 12.
+This is often the difference in co-integration rank.}
 
 \item{clevel}{The numeric scalar level of significance.}
 
@@ -27,7 +27,8 @@ depending on the particular model. Each element is the output of the function \c
 }
 \description{
 \code{fcrit} calculates critical values for a particular level of significance
-and a set of intermediate calculations.
+and a set of intermediate calculations
+that are output from other functions in the \code{fracdist} package.
 }
 \examples{
 frtab <- get_fracdist_tab(iq = 3, iscon = 0)
@@ -42,8 +43,8 @@ fpcrit(npts = 9, iq = 3, clevel = 0.05, probs, bedf, ginv = qchisq(probs, df = 3
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
-Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+\emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 }
 \seealso{
 fracdist_values for the calculation of critical values and

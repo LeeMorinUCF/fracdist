@@ -1,6 +1,6 @@
 Package: fracdist
-Title: Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests
-Version: 0.0.0.9000
+Title: Numerical Distribution Functions of Fractional Unit Root and Co-Integration Tests
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Lealand",
              family = "Morin",
@@ -8,15 +8,15 @@ Authors@R:
              email = "lealand.morin@ucf.edu",
              comment = c(ORCID = "0000-0001-8539-1386")))
 Description: Numerical asymptotic distribution functions of likelihood ratio tests for fractional 
-    unit roots and cointegration rank. For these distributions, the included functions calculate 
-    critial values and P-values used in unit root tests, cointegration tests, and rank tests in the 
-    Fractionally Cointegrated Vector Autoregression (FCVAR) model.
+    unit roots and co-integration rank. For these distributions, the included functions calculate 
+    critical values and P-values used in unit root tests, co-integration tests, and rank tests in the 
+    Fractionally Co-integrated Vector Autoregression (F.C.V.A.R.) model.
 Depends: R (>= 2.10)
 URL: https://github.com/LeeMorinUCF/fracdist
 BugReports: https://github.com/LeeMorinUCF/fracdist/issues
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0)

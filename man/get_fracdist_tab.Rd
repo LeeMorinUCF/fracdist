@@ -7,8 +7,8 @@
 get_fracdist_tab(iq, iscon, dir_name = NULL, file_ext = "rda")
 }
 \arguments{
-\item{iq}{An integer scalar rank parameter for the test.
-This is often the difference in cointegration rank.}
+\item{iq}{An integer scalar rank parameter for the test, from 1 through 12.
+This is often the difference in co-integration rank.}
 
 \item{iscon}{An indicator that there is a constant intercept
 term in the model.}
@@ -24,6 +24,11 @@ the tables included in the package. The tables may also be stored in
 original Fortran program, on which this package is based,
 can be obtained in \code{'txt'} format. See the reference for details.}
 }
+\value{
+A data frame with three columns: \code{bbb} is the fractional
+integration parameter, \code{probs} are the probability values,
+and \code{xndf} is the \code{probs} quantile of the distribution.
+}
 \description{
 \code{get_fracdist_tab} selects a table of probabilities
 and quantiles for a list of values of the fractional
@@ -35,6 +40,6 @@ frtab <- get_fracdist_tab(iq = 1, iscon = 0)
 }
 \references{
 James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
-"Numerical Distribution Functions of Fractional Unit Root and Cointegration Tests,"
-Journal of Applied Econometrics, Vol. 29, No. 1, 2014, pp.161-171.
+"Numerical Distribution Functions of Fractional Unit Root and Co-integration Tests,"
+\emph{Journal of Applied Econometrics}, Vol. 29, No. 1, 2014, pp.161-171.
 }
