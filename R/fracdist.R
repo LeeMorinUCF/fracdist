@@ -697,8 +697,8 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 #' @param clevel The numeric scalar level of significance. The default is to
 #' calculate critical values for the conventional levels of significance:
 #' \code{clevel = c(0.01, 0.05, 0.10)}.
-#' @return Either a numeric scalar P-value, if \code{ipc == TRUE}.
-#' Otherwise, a numeric vector of critical values, the same length as \code{clevel}.
+#' @return Either a numeric scalar P-value, if \code{ipc == TRUE},
+#' otherwise, a numeric vector of critical values, the same length as \code{clevel}.
 #' @examples
 #' # Calculate P-values:
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.43, stat = 3.84)
