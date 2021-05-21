@@ -22,6 +22,9 @@ between 0.5 and 2.0.}
 
 \item{stat}{A numeric scalar value of the test statistic.}
 }
+\value{
+A numeric scalar P-value.
+}
 \description{
 \code{fracdist_pvalues} calculates P-values for a particular value of the observed
 statistic.

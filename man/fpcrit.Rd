@@ -25,6 +25,9 @@ depending on the particular model. Each element is the output of the function \c
 
 \item{ginv}{A numeric vector of quantiles of the approximating chi-squared distribution.}
 }
+\value{
+A numeric scalar critical value, a quantile of the distribution.
+}
 \description{
 \code{fcrit} calculates critical values for a particular level of significance
 and a set of intermediate calculations

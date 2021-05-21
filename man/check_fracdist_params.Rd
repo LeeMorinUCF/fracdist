@@ -18,6 +18,10 @@ term in the model.
 between 0.0 and 2.0.
 }}
 }
+\value{
+No return value when checks pass, otherwise execution halts
+and an error message is printed.
+}
 \description{
 This is a helper function for error handling in the fracdist package.
 It is not intended to be used externally but might help diagnose

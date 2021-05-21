@@ -5,6 +5,9 @@
 \alias{.fracdist}
 \title{Numerical CDFs for
 Fractional Unit Root and Cointegration Tests}
+\value{
+Returns \code{NULL}. Object included for description only.
+}
 \description{
 A package for calculating numerical distribution functions of fractional
 unit root and cointegration test statistics. The included functions calculate

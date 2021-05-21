@@ -95,6 +95,7 @@ devtools::install_github("LeeMorinUCF/fracdist")
 Second submission after adjustments to documentation:
 * Shortened the package title to 63 characters.
 * Replaced examples to avoid using ```\dontrun``` environment. 
+* Added description of return values to documentation. 
 
 
 

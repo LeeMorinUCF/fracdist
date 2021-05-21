@@ -25,6 +25,9 @@ depending on the particular model. Each element is the output of the function \c
 
 \item{ginv}{A numeric vector of quantiles of the approximating chi-squared distribution.}
 }
+\value{
+A numeric scalar P-value.
+}
 \description{
 \code{fpval} calculates P-values for a particular value of the observed
 statistic and a set of intermediate calculations

@@ -66,6 +66,7 @@
 #'
 #' @docType package
 #' @name .fracdist
+#' @return Returns \code{NULL}. Object included for description only.
 NULL
 
 
@@ -85,6 +86,8 @@ NULL
 #' \item \code{bb} The fractional integration parameter, which can take on values
 #' between 0.0 and 2.0.
 #' }
+#' @return No return value when checks pass, otherwise execution halts
+#' and an error message is printed.
 #' @examples
 #' # Test with iscon = 7 to see error message:
 #' check_fracdist_params(list(iq = 2, iscon = 1))
@@ -288,6 +291,8 @@ get_fracdist_tab <- function(iq, iscon, dir_name = NULL,
 #' a quantile, corresponding to a particular probability.
 #' @param bval A numeric vector of the fractional integration parameter \eqn{b}
 #' ranging between 0.5 and 2.0 to match those in the lookup tables.
+#' @return A numeric scalar that is the sum of regression coefficients
+#' from a response surface regression.
 #' @examples
 #' frtab <- get_fracdist_tab(iq = 3, iscon = 0)
 #' bval <- unique(frtab[, 'bbb'])
@@ -361,6 +366,7 @@ blocal <- function(nb = 31, bb, estcrit, bval) {
 #' value of fractional integration order \eqn{b} or values of \eqn{b} and \eqn{d},
 #' depending on the particular model. Each element is the output of the function \code{blocal}.
 #' @param ginv A numeric vector of quantiles of the approximating chi-squared distribution.
+#' @return A numeric scalar P-value.
 #' @examples
 #' frtab <- get_fracdist_tab(iq = 3, iscon = 0)
 #' bval <- unique(frtab[, 'bbb'])
@@ -492,6 +498,7 @@ fpval <- function(npts = 9, iq, stat, probs, bedf, ginv) {
 #' @param bb The fractional integration parameter, which can take on values
 #' between 0.5 and 2.0.
 #' @param stat A numeric scalar value of the test statistic.
+#' @return A numeric scalar P-value.
 #' @examples
 #' fracdist_pvalues(iq = 1, iscon = 0, bb = 0.73, stat = 3.84)
 #' @references James G. MacKinnon and Morten \enc{Ø}{O}rregaard Nielsen,
@@ -557,6 +564,7 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
 #' value of fractional integration order \eqn{b} or values of \eqn{b} and \eqn{d},
 #' depending on the particular model. Each element is the output of the function \code{blocal}.
 #' @param ginv A numeric vector of quantiles of the approximating chi-squared distribution.
+#' @return A numeric scalar critical value, a quantile of the distribution.
 #' @examples
 #' frtab <- get_fracdist_tab(iq = 3, iscon = 0)
 #' bval <- unique(frtab[, 'bbb'])
@@ -689,6 +697,8 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 #' @param clevel The numeric scalar level of significance. The default is to
 #' calculate critical values for the conventional levels of significance:
 #' \code{clevel = c(0.01, 0.05, 0.10)}.
+#' @return Either a numeric scalar P-value, if \code{ipc == TRUE}.
+#' Otherwise, a numeric vector of critical values, the same length as \code{clevel}.
 #' @examples
 #' # Calculate P-values:
 #' fracdist_values(iq = 1, iscon = 0, bb = 0.43, stat = 3.84)

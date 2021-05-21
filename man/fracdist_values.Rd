@@ -38,6 +38,10 @@ If \code{ipc == FALSE} critical values are calculated instead.}
 calculate critical values for the conventional levels of significance:
 \code{clevel = c(0.01, 0.05, 0.10)}.}
 }
+\value{
+Either a numeric scalar P-value, if \code{ipc == TRUE}.
+Otherwise, a numeric vector of critical values, the same length as \code{clevel}.
+}
 \description{
 \code{fracdist_values} calculates either critical Values or P-values for
 for fractional unit root and cointegration tests

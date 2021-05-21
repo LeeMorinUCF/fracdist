@@ -20,6 +20,10 @@ a quantile, corresponding to a particular probability.}
 \item{bval}{A numeric vector of the fractional integration parameter \eqn{b}
 ranging between 0.5 and 2.0 to match those in the lookup tables.}
 }
+\value{
+A numeric scalar that is the sum of regression coefficients
+from a response surface regression.
+}
 \description{
 \code{blocal} calculates an approximation to the CDF for a particular
 value of the fractional integration parameter b.
