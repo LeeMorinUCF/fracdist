@@ -13,12 +13,12 @@ Fractionally Co-integrated Vector Autoregression (FCVAR) model.
 
 Simple tabulation is not a feasible approach for obtaining
 critical values and P-values because these distributions depend
-on a real-valued parameter \code{b} that must be estimated.
+on a real-valued parameter *b* that must be estimated.
 Instead, response surface regressions are used to obtain the numerical
 distribution functions and combined by model averaging
 across values taken from a series of tables.
-As a function of the dimension of the problem, \code{q},
-and a value of the fractional integration order \code{b},
+As a function of the dimension of the problem, *q*,
+and a value of the fractional integration order *b*,
 this approach provides either a set of critical values or the asymptotic P-value
 for any value of the likelihood ratio statistic.
 The P-values and critical values are calculated by interpolating from the
@@ -26,7 +26,7 @@ quantiles on a grid of probabilities and values of the fractional integration or
 with separate tables for a range of values of co-integrating rank.
 
 The functions in this package are based on the functions and subroutines 
-in the Fortran program \code{fracdist.f} 
+in the Fortran program *fracdist.f* 
 to accompany an article by MacKinnon and Nielsen (2014).
 This program is available from the archive 
 of the *Journal of Applied Econometrics* at
