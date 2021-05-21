@@ -22,7 +22,7 @@ This is often the difference in co-integration rank.}
 term in the model.}
 
 \item{dir_name}{A string name of directory in which the approximating tables
-are stored. This is not normally used, since suffucient tables are included in the package.
+are stored. This is not normally used, since sufficient tables are included in the package.
 However, a user might want to draw the tables from another location.}
 
 \item{bb}{The fractional integration parameter, which can take on values

@@ -352,7 +352,7 @@ blocal <- function(nb = 31, bb, estcrit, bval) {
 #' This is often the difference in co-integration rank.
 #' @param stat A numeric scalar value of the test statistic.
 #' @param probs A numeric vector of probabilities over which an approximating
-#' empiricial distribution function is obtained, taken from precalculated tables.
+#' empirical distribution function is obtained, taken from precalculated tables.
 #' @param bedf A numeric vector of quantiles of numerical distribution for specified
 #' value of fractional integration order \eqn{b} or values of \eqn{b} and \eqn{d},
 #' depending on the particular model. Each element is the output of the function \code{blocal}.
@@ -548,7 +548,7 @@ fracdist_pvalues <- function(iq, iscon, dir_name = NULL, bb, stat) {
 #' This is often the difference in co-integration rank.
 #' @param clevel The numeric scalar level of significance.
 #' @param probs A numeric vector of probabilities over which an approximating
-#' empiricial distribution function is obtained, taken from precalculated tables.
+#' empirical distribution function is obtained, taken from precalculated tables.
 #' @param bedf A numeric vector of quantiles of numerical distribution for specified
 #' value of fractional integration order \eqn{b} or values of \eqn{b} and \eqn{d},
 #' depending on the particular model. Each element is the output of the function \code{blocal}.
@@ -674,7 +674,7 @@ fpcrit <- function(npts = 9, iq, clevel, probs, bedf, ginv) {
 #' @param iscon An indicator that there is a constant intercept
 #' term in the model.
 #' @param dir_name A string name of directory in which the approximating tables
-#' are stored. This is not normally used, since suffucient tables are included in the package.
+#' are stored. This is not normally used, since sufficient tables are included in the package.
 #' However, a user might want to draw the tables from another location.
 #' @param bb The fractional integration parameter, which can take on values
 #' between 0.0 and 2.0.

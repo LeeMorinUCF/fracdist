@@ -17,6 +17,7 @@ BugReports: https://github.com/LeeMorinUCF/fracdist/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: false
+Language: en-US
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0)

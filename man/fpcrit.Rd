@@ -17,7 +17,7 @@ This is often the difference in co-integration rank.}
 \item{clevel}{The numeric scalar level of significance.}
 
 \item{probs}{A numeric vector of probabilities over which an approximating
-empiricial distribution function is obtained, taken from precalculated tables.}
+empirical distribution function is obtained, taken from precalculated tables.}
 
 \item{bedf}{A numeric vector of quantiles of numerical distribution for specified
 value of fractional integration order \eqn{b} or values of \eqn{b} and \eqn{d},
