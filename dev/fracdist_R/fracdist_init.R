@@ -569,4 +569,26 @@ desc_add_author(given = "Lealand", family = "Morin",
 
 
 
+# Sequence of checks for submission to CRAN
 
+# Rhub checks on Windows and Two Linux platforms:
+# rhub_results <- rhub::check_for_cran()
+# rhub_results$cran_summary()
+# devtools::check_win_release()
+# devtools::check_win_devel()
+
+# When all checks pass, update cran-comments.md,
+# NEWS.md, and README.md.
+
+# Then, submit to CRAN:
+
+# This way, you get a series of questions to
+# run through a chacklist:
+# devtools::release()
+
+# This way is a short cut,
+# which skips all the questions:
+# devtools::submit_cran()
+
+
+# Then wait anxiously for a response.
