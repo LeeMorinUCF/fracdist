@@ -51,6 +51,18 @@ Johansen, S. and M. Ø. Nielsen (2012).
 *Econometrica* 80, pp.2667-2732.
 
 
+## How to Install fracdist
+
+Install the development version on GitHub using the *devtools* package:
+
+```
+library(devtools)
+devtools::install_github("LeeMorinUCF/fracdist")
+
+
+```
+
+
 ## Examples
 
 ```
