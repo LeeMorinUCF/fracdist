@@ -53,7 +53,7 @@ Johansen, S. and M. Ø. Nielsen (2012).
 
 ## How to Install fracdist
 
-Install the development version on GitHub using the *devtools* package:
+Install the development version on GitHub using the ```devtools``` package:
 
 ```
 library(devtools)
@@ -91,7 +91,7 @@ devtools::install_github("LeeMorinUCF/fracdist")
 ## Release Notes
 
 
-## May 21, 2021,  ```fracdist_0.1.1```: 
+### May 21, 2021,  ```fracdist_0.1.1```: 
 Second submission after adjustments to documentation:
 * Shortened the package title to 63 characters.
 * Replaced examples to avoid using ```\dontrun``` environment. 
