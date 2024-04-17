@@ -12,7 +12,7 @@
 # College of Business
 # University of Central Florida
 #
-# May 19, 2021
+# April 17, 2024
 #
 ##################################################
 #
@@ -65,7 +65,8 @@
 #' \emph{Econometrica} 80, pp.2667-2732.
 #'
 #' @docType package
-#' @name .fracdist
+#' @name fracdist
+#' @aliases fracdist-package
 #' @return Returns \code{NULL}. Object included for description only.
 NULL
 

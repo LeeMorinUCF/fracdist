@@ -90,6 +90,11 @@ devtools::install_github("LeeMorinUCF/fracdist")
 
 ## Release Notes
 
+## April 17, 2024,  ```fracdist_0.1.2```: 
+Third submission after adjustments to documentation:
+* Added <pkgname>-package alias to documentation.
+* Revised contact information for maintainer due to change in affiliation.
+
 
 ### May 21, 2021,  ```fracdist_0.1.1```: 
 Second submission after adjustments to documentation:

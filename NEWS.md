@@ -1,8 +1,6 @@
-# fracdist 0.1.1
+# fracdist 0.1.2
 
-## May 21, 2021: 
-Second submission after adjustments to documentation:
-* Shortened the package title to 63 characters.
-* Replaced examples to avoid using ```\dontrun``` environment. 
-* Added description of return values to documentation. 
-* Added references to description field in DESCRIPTION file. 
+## April 17, 2024: 
+Third submission after adjustments to documentation:
+* Added <pkgname>-package alias to documentation.
+* Revised contact information for maintainer due to change in affiliation.
